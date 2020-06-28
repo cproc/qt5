@@ -88,7 +88,7 @@ if (use_bundled_fontconfig) {
     }
 
     if (!is_win) {
-      libs = [ "uuid" ]
+      #libs = [ "uuid" ]
     }
   }
 } else {

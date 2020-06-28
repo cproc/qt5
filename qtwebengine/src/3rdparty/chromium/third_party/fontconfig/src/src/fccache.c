@@ -39,7 +39,7 @@
 #if defined(_WIN32)
 #include <sys/locking.h>
 #else
-#include <uuid/uuid.h>
+//#include <uuid/uuid.h>
 #endif
 
 #ifndef O_BINARY
@@ -54,6 +54,7 @@ FcDirCacheCreateUUID (FcChar8  *dir,
     const FcChar8 *sysroot = FcConfigGetSysRoot (config);
     FcChar8 *target;
     FcBool ret = FcTrue;
+#if 0
 #ifndef _WIN32
     FcChar8 *uuidname;
 
@@ -146,7 +147,7 @@ bail1:
     FcStrFree (uuidname);
     FcStrFree (target);
 #endif
-
+#endif
     return ret;
 }
 
@@ -170,6 +171,7 @@ FcDirCacheDeleteUUID (const FcChar8  *dir,
     return ret;
 }
 
+#if 0
 #ifndef _WIN32
 static void
 FcDirCacheReadUUID (FcChar8  *dir,
@@ -221,6 +223,7 @@ FcDirCacheReadUUID (FcChar8  *dir,
 	FcHashUuidFree (u);
     FcStrFree (target);
 }
+#endif
 #endif
 
 struct MD5Context {
@@ -298,6 +301,7 @@ FcDirCacheBasenameMD5 (const FcChar8 *dir, FcChar8 cache_base[CACHEBASE_LEN])
     return cache_base;
 }
 
+#if 0
 #ifndef _WIN32
 static FcChar8 *
 FcDirCacheBasenameUUID (const FcChar8 *dir, FcChar8 cache_base[CACHEBASE_LEN], FcConfig *config)
@@ -322,6 +326,7 @@ FcDirCacheBasenameUUID (const FcChar8 *dir, FcChar8 cache_base[CACHEBASE_LEN], F
     return NULL;
 }
 #endif
+#endif
 
 FcBool
 FcDirCacheUnlink (const FcChar8 *dir, FcConfig *config)
@@ -332,8 +337,10 @@ FcDirCacheUnlink (const FcChar8 *dir, FcConfig *config)
     FcChar8	*cache_dir;
     const FcChar8 *sysroot = FcConfigGetSysRoot (config);
 
+#if 0
 #ifndef _WIN32
     if (!FcDirCacheBasenameUUID (dir, cache_base, config))
+#endif
 #endif
 	FcDirCacheBasenameMD5 (dir, cache_base);
 
@@ -412,8 +419,10 @@ FcDirCacheProcess (FcConfig *config, const FcChar8 *dir,
     }
     FcStrFree (d);
 
+#if 0
 #ifndef _WIN32
     if (!FcDirCacheBasenameUUID (dir, cache_base, config))
+#endif
 #endif
 	FcDirCacheBasenameMD5 (dir, cache_base);
 
@@ -1040,8 +1049,10 @@ FcDirCacheLoad (const FcChar8 *dir, FcConfig *config, FcChar8 **cache_file)
 {
     FcCache *cache = NULL;
 
+#if 0
 #ifndef _WIN32
     FcDirCacheReadUUID ((FcChar8 *) dir, config);
+#endif
 #endif
     if (!FcDirCacheProcess (config, dir,
 			    FcDirCacheMapHelper,
@@ -1346,8 +1357,10 @@ FcDirCacheWrite (FcCache *cache, FcConfig *config)
     if (!cache_dir)
 	return FcFalse;
 
+#if 0
 #ifndef _WIN32
     if (!FcDirCacheBasenameUUID (dir, cache_base, config))
+#endif
 #endif
 	FcDirCacheBasenameMD5 (dir, cache_base);
     cache_hashed = FcStrBuildFilename (cache_dir, cache_base, NULL);
@@ -1546,8 +1559,10 @@ FcDirCacheLock (const FcChar8 *dir,
     const FcChar8 *sysroot = FcConfigGetSysRoot (config);
     int fd = -1;
 
+#if 0
 #ifndef _WIN32
     if (!FcDirCacheBasenameUUID (dir, cache_base, config))
+#endif
 #endif
 	FcDirCacheBasenameMD5 (dir, cache_base);
     list = FcStrListCreate (config->cacheDirs);
