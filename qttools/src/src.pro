@@ -16,7 +16,7 @@ qtHaveModule(widgets) {
     }
 }
 
-SUBDIRS += linguist \
+SUBDIRS += \
     qtattributionsscanner
 
 qtConfig(library) {

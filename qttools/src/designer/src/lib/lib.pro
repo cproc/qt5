@@ -12,8 +12,8 @@ DEFINES += \
 static:DEFINES += QT_DESIGNER_STATIC
 
 include(extension/extension.pri)
-include(sdk/sdk.pri)
-include(shared/shared.pri)
+#include(sdk/sdk.pri)
+#include(shared/shared.pri)
 include(uilib/uilib.pri)
 PRECOMPILED_HEADER=lib_pch.h
 
