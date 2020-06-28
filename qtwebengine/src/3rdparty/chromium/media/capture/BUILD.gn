@@ -220,7 +220,7 @@ jumbo_component("capture_lib") {
   }
 
   # This includes the case of ChromeOS
-  if (is_linux) {
+  if (is_linux && false) {
     sources += [
       "video/linux/camera_config_chromeos.cc",
       "video/linux/camera_config_chromeos.h",

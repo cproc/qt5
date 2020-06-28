@@ -16,8 +16,11 @@
 #include "build/build_config.h"
 
 #if defined(OS_POSIX)
-#include <sys/stdint.h>
 #include <unistd.h>
+#endif
+
+#if defined(OS_BSD)
+#include <sys/stdint.h>
 #endif
 
 #if defined(OS_WIN)

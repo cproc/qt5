@@ -17,8 +17,10 @@
 
 #if defined(OS_MACOSX)
 #include <malloc/malloc.h>
-#else
+#elif defined(OS_FREEBSD)
 #include <stdlib.h>
+#else
+#include <malloc.h>
 #endif
 #if defined(OS_WIN)
 #include <windows.h>

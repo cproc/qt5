@@ -25,7 +25,9 @@
 #elif defined(OS_MACOSX) || defined(OS_OPENBSD)
 #include <sys/sysctl.h>
 #elif defined(OS_FREEBSD)
+#if 0
 #include <sys/user.h>
+#endif
 #elif defined(OS_POSIX) || defined(OS_FUCHSIA)
 #include <dirent.h>
 #endif

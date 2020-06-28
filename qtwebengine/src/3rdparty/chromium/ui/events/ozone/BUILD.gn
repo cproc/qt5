@@ -68,7 +68,7 @@ if (use_ozone) {
     defines = [ "USE_EVDEV_GESTURES" ]
   }
 
-  if (is_linux || is_chromeos) {
+  if ((is_linux || is_chromeos) && false) {
     component("events_ozone_evdev") {
       sources = [
         "evdev/device_event_dispatcher_evdev.cc",

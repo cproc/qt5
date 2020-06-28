@@ -9,7 +9,7 @@
 #include "src/external-reference.h"
 #include "src/ic/stub-cache.h"
 
-#if defined(DEBUG) && (defined(V8_OS_LINUX) || defined(V8_OS_FREEBSD)) && !defined(V8_OS_ANDROID)
+#if defined(DEBUG) && (defined(V8_OS_LINUX) || defined(V8_OS_FREEBSD)) && !defined(V8_OS_ANDROID) && 0
 #define SYMBOLIZE_FUNCTION
 #include <execinfo.h>
 #include <vector>

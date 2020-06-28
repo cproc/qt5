@@ -271,9 +271,9 @@ jumbo_component("wtf") {
     libs = [ "dl" ]
   }
 
-  if (is_bsd) {
-    libs = [ "execinfo" ]
-  }
+#  if (is_bsd) {
+#    libs = [ "execinfo" ]
+#  }
 
   if (is_mac) {
     libs = [

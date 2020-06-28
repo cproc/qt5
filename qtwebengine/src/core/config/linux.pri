@@ -131,11 +131,13 @@ host_build {
     gn_args += custom_toolchain=\"$$QTWEBENGINE_OUT_ROOT/src/toolchain:target\"
     gn_args += host_toolchain=\"$$QTWEBENGINE_OUT_ROOT/src/toolchain:host\"
     GN_TARGET_CPU = $$gnArch($$QT_ARCH)
+    GN_TARGET_OS = $$gnOS()
     cross_compile {
         gn_args += v8_snapshot_toolchain=\"$$QTWEBENGINE_OUT_ROOT/src/toolchain:v8_snapshot\"
         # FIXME: we should set host_cpu in case host-toolchain doesn't match os arch,
         # but currently we don't it available at this point
         gn_args += target_cpu=\"$$GN_TARGET_CPU\"
+        gn_args += target_os=\"$$GN_TARGET_OS\"
     } else {
         gn_args += host_cpu=\"$$GN_TARGET_CPU\"
     }

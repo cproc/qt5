@@ -36,7 +36,7 @@
 #include <sys/sysctl.h>
 #endif
 
-#if defined(OS_FREEBSD)
+#if defined(OS_FREEBSD) && 0
 #include <sys/user.h>
 #endif
 
@@ -63,6 +63,7 @@ namespace debug {
 // Based on Apple's recommended method as described in
 // http://developer.apple.com/qa/qa2004/qa1361.html
 bool BeingDebugged() {
+#if 0
   // NOTE: This code MUST be async-signal safe (it's used by in-process
   // stack dumping signal handler). NO malloc or stdio is allowed here.
   //
@@ -86,7 +87,7 @@ bool BeingDebugged() {
     KERN_PROC,
     KERN_PROC_PID,
     getpid()
-#if defined(OS_BSD) 
+#if defined(OS_BSD) && 0
     , sizeof(struct kinfo_proc),
     0
 #endif
@@ -124,6 +125,9 @@ bool BeingDebugged() {
 out:
   free(info);
   return being_debugged;
+#else
+  return false;
+#endif
 }
 
 #elif defined(OS_LINUX) || defined(OS_ANDROID) || defined(OS_AIX)

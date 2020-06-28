@@ -53,7 +53,9 @@
 #endif
 
 #if defined(OS_LINUX) || defined(OS_BSD)
+#if 0
 #include <sys/syscall.h>
+#endif
 #endif
 
 #if defined(OS_LINUX) || defined(OS_ANDROID) || defined(OS_BSD)

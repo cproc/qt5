@@ -13,8 +13,10 @@
 #include <sys/socket.h>  // Must be included before ifaddrs.h.
 #include <ifaddrs.h>
 #include <net/if.h>
+#if 0
 #include <netinet/in_var.h>
 #include <netinet6/in6_var.h>
+#endif
 #include <string.h>
 #include <sys/ioctl.h>
 #endif
@@ -330,6 +332,7 @@ void AddressSorterPosix::Sort(const AddressList& list,
 void AddressSorterPosix::OnIPAddressChanged() {
   DCHECK_CALLED_ON_VALID_THREAD(thread_checker_);
   source_map_.clear();
+#if 0
 #if defined(OS_LINUX)
   const internal::AddressTrackerLinux* tracker =
       NetworkChangeNotifier::GetAddressTracker();
@@ -393,6 +396,7 @@ void AddressSorterPosix::OnIPAddressChanged() {
   }
   freeifaddrs(addrs);
   close(ioctl_socket);
+#endif
 #endif
 }
 

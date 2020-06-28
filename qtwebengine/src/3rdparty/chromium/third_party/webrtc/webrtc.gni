@@ -191,7 +191,7 @@ declare_args() {
   rtc_enable_protobuf = !build_with_mozilla
 
   # Set this to disable building with support for SCTP data channels.
-  rtc_enable_sctp = !build_with_mozilla
+  rtc_enable_sctp = !build_with_mozilla && false
 
   # Disable these to not build components which can be externally provided.
   rtc_build_json = !build_with_mozilla

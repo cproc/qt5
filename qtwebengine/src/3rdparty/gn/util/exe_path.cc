@@ -15,6 +15,7 @@
 #include <windows.h>
 #elif defined(OS_FREEBSD)
 #include <sys/sysctl.h>
+#include <sys/syslimits.h>
 #include <sys/types.h>
 #endif
 

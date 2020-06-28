@@ -7,7 +7,9 @@
 #include <stddef.h>
 #include <sys/types.h>
 #include <sys/sysctl.h>
+#if 0
 #include <sys/user.h>
+#endif
 #include <unistd.h>
 
 #include "base/macros.h"
@@ -17,8 +19,10 @@
 
 #include <unistd.h> /* getpagesize() */
 #include <fcntl.h>  /* O_RDONLY */
+#if 0
 #include <kvm.h>
 #include <libutil.h>
+#endif
 
 namespace base {
 
@@ -32,6 +36,7 @@ std::unique_ptr<ProcessMetrics> ProcessMetrics::CreateProcessMetrics(
 }
 
 double ProcessMetrics::GetPlatformIndependentCPUUsage() {
+#if 0
   struct kinfo_proc info;
   int mib[] = {CTL_KERN, KERN_PROC, KERN_PROC_PID, process_};
   size_t length = sizeof(info);
@@ -40,6 +45,9 @@ double ProcessMetrics::GetPlatformIndependentCPUUsage() {
     return 0;
 
   return (info.ki_pctcpu / FSCALE) * 100.0;
+#else
+  return 0;
+#endif
 }
 
 TimeDelta ProcessMetrics::GetCumulativeCPUUsage() {
@@ -76,7 +84,8 @@ size_t GetSystemCommitCharge() {
 
 int GetNumberOfThreads(ProcessHandle process) {
   // Taken from FreeBSD top (usr.bin/top/machine.c)
-
+  return 0;
+#if 0
   kvm_t* kd = kvm_open(NULL, "/dev/null", NULL, O_RDONLY, "kvm_open");
   if (kd == NULL)
     return 0;
@@ -91,6 +100,7 @@ int GetNumberOfThreads(ProcessHandle process) {
     return 0;
 
   return nproc;
+#endif
 }
 
 bool GetSystemMemoryInfo(SystemMemoryInfoKB *meminfo) {
@@ -129,6 +139,8 @@ bool GetSystemMemoryInfo(SystemMemoryInfoKB *meminfo) {
 }
 
 int ProcessMetrics::GetOpenFdCount() const {
+  return -1;
+#if 0
   struct kinfo_file * kif;
   int cnt;
 
@@ -138,6 +150,7 @@ int ProcessMetrics::GetOpenFdCount() const {
   free(kif);
 
   return cnt;
+#endif
 }
 
 int ProcessMetrics::GetOpenFdSoftLimit() const {

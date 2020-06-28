@@ -574,7 +574,7 @@ jumbo_component("base") {
       "//ui/ozone:ozone_base",
     ]
 
-    if (!is_fuchsia) {
+    if (!is_fuchsia && false) {
       deps += [ "//ui/events/ozone:events_ozone_evdev" ]
     }
   }

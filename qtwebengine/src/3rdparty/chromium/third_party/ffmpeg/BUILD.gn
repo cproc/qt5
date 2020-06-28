@@ -325,11 +325,11 @@ target(link_target_type, "ffmpeg_internal") {
       # all unwinder-providing libraries).
 
       # librt for clock_gettime on precise
-      libs += [
-        "m",
-        "z",
-        "rt",
-      ]
+      #libs += [
+      #  "m",
+      #  "z",
+      #  "rt",
+      #]
     }
     if (is_component_ffmpeg) {
       # Export all symbols when building as component.

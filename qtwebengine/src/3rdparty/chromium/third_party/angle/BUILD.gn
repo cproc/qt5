@@ -18,7 +18,7 @@ if (is_android) {
 declare_args() {
   # Use the PCI lib to collect GPU information on Linux.
   use_libpci = is_linux && (!is_chromecast || is_cast_desktop_build) &&
-               (use_x11 || use_ozone)
+               (use_x11 || use_ozone) && false
 
   # Link in system libGL, to work with apitrace.  See doc/DebuggingTips.md.
   angle_link_glx = false
@@ -269,7 +269,7 @@ angle_static_library("angle_gpu_info_util") {
     sources += libangle_gpu_info_util_linux_sources
 
     # Somewhere "use_x11" is set to false, so we need to add is_bsd here
-    if (use_x11 || is_bsd) {
+    if ((use_x11 || is_bsd) && false) {
       sources += libangle_gpu_info_util_x11_sources
       deps += [ "src/third_party/libXNVCtrl:libXNVCtrl" ]
       defines += [ "GPU_INFO_USE_X11" ]

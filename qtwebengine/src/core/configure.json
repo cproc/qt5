@@ -407,7 +407,7 @@
         },
         "webengine-system-libevent" : {
             "label": "libevent",
-            "condition": "config.unix && libs.webengine-libevent",
+            "condition": "config.unix && libs.webengine-libevent && false",
             "output": [ "privateFeature" ]
         },
         "webengine-system-jsoncpp" : {
@@ -656,7 +656,7 @@
         },
         "webengine-system-x11" : {
             "label": "x11",
-            "condition": "config.unix && libs.webengine-x11",
+            "condition": "false",
             "output": [ "privateFeature" ]
         },
         "webengine-ozone-x11" : {

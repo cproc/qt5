@@ -14,7 +14,9 @@
 #if !defined(__FreeBSD__)
 #include <sys/prctl.h>
 #endif
+#if 0
 #include <sys/syscall.h>
+#endif
 #endif
 
 namespace rtc {

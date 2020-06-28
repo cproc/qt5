@@ -556,8 +556,8 @@ jumbo_component("base") {
     "power_monitor/power_observer.h",
     "process/internal_linux.cc",
     "process/internal_linux.h",
-    "process/kill.cc",
-    "process/kill.h",
+    #"process/kill.cc",
+    #"process/kill.h",
     "process/kill_mac.cc",
     "process/kill_win.cc",
     "process/launch.cc",
@@ -584,8 +584,8 @@ jumbo_component("base") {
     "process/process_handle_win.cc",
     "process/process_info.h",
     "process/process_info_win.cc",
-    "process/process_iterator.cc",
-    "process/process_iterator.h",
+    #"process/process_iterator.cc",
+    #"process/process_iterator.h",
 
     #"process/process_iterator_freebsd.cc",  # Unused in Chromium build.
     "process/process_iterator_linux.cc",
@@ -1759,20 +1759,27 @@ jumbo_component("base") {
       "process/process_metrics_linux.cc",
       "system/sys_info_linux.cc"
     ]
+#    sources += [
+#      "files/file_path_watcher_kqueue.cc",
+#      "files/file_path_watcher_kqueue.h",
+#      "files/file_path_watcher_stub.cc",
+#      "process/memory_stubs.cc",
+#      "process/process_handle_freebsd.cc",
+#      "process/process_iterator_freebsd.cc",
+#      "process/process_metrics_freebsd.cc",
+#      "system/sys_info_freebsd.cc",
+#    ]
+#    libs = [
+#      "execinfo", # logging.cc
+#      "kvm",      # process_metrics_freebsd
+#      "util"      # process_metrics_freebsd
+#    ]
     sources += [
-      "files/file_path_watcher_kqueue.cc",
-      "files/file_path_watcher_kqueue.h",
       "files/file_path_watcher_stub.cc",
       "process/memory_stubs.cc",
       "process/process_handle_freebsd.cc",
-      "process/process_iterator_freebsd.cc",
       "process/process_metrics_freebsd.cc",
       "system/sys_info_freebsd.cc",
-    ]
-    libs = [
-      "execinfo", # logging.cc
-      "kvm",      # process_metrics_freebsd
-      "util"      # process_metrics_freebsd
     ]
   }
 

@@ -12,7 +12,7 @@
 #include <sys/time.h>
 #include <atomic>
 
-#if !V8_OS_QNX && !V8_OS_AIX
+#if !V8_OS_QNX && !V8_OS_AIX && 0
 #include <sys/syscall.h>  // NOLINT
 #endif
 
