@@ -44,8 +44,9 @@ qtquickcompiler {
     DEFINES += ALWAYS_LOAD_FROM_RESOURCES
 } else {
     QML_FILES += $$CONTROLS_QML_FILES
-    !static: CONFIG += qmlcache
-    else: CONTROLS_QML_FILES += qmldir
+    #!static: CONFIG += qmlcache
+    #else: CONTROLS_QML_FILES += qmldir
+    CONTROLS_QML_FILES += qmldir
 }
 
 SOURCES += $$PWD/plugin.cpp
@@ -60,19 +61,19 @@ include(Shaders/shaders.pri)
 
 osx: LIBS_PRIVATE += -framework Carbon
 
-!qmlcache {
-    INCLUDED_RESOURCE_FILES = \
-        $$CONTROLS_QML_FILES \
-        $$PRIVATE_QML_FILES \
-        $$STYLES_QML_FILES
-
-} else {
+#!qmlcache {
+#    INCLUDED_RESOURCE_FILES = \
+#        $$CONTROLS_QML_FILES \
+#        $$PRIVATE_QML_FILES \
+#        $$STYLES_QML_FILES
+#
+#} else {
     QML_FILES *= $$CONTROLS_QML_FILES \
                  $$PRIVATE_QML_FILES \
                  $$STYLES_QML_FILES
     OTHER_FILES += $$QML_FILES \
                  $$SHADER_FILES
-}
+#}
 
 INCLUDED_RESOURCE_FILES += $$SHADER_FILES
 

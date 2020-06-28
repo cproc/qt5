@@ -86,7 +86,7 @@ qtquickcompiler {
     dialogs.prefix = /QtQuick/Dialogs
     RESOURCES += dialogs
 } else {
-    !static: CONFIG += qmlcache
+    #!static: CONFIG += qmlcache
 }
 
 load(qml_plugin)
