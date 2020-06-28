@@ -440,7 +440,7 @@ static size_t PartitionPurgePage(internal::PartitionPage* page, bool discard) {
 #endif
       }
       // Terminate the freelist chain.
-      *entry_ptr = nullptr;
+      *entry_ptr = internal::PartitionFreelistEntry::Transform(nullptr);
       // The freelist head is stored unmasked.
       page->freelist_head =
           internal::PartitionFreelistEntry::Transform(page->freelist_head);

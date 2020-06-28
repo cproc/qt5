@@ -246,7 +246,8 @@ SkColor SkPixmap::getColor(int x, int y) const {
     const bool needsUnpremul = (kPremul_SkAlphaType == fInfo.alphaType());
     auto toColor = [needsUnpremul](uint32_t maybePremulColor) {
         return needsUnpremul ? SkUnPreMultiply::PMColorToColor(maybePremulColor)
-                             : SkSwizzle_BGRA_to_PMColor(maybePremulColor);
+                             : SkColorSetARGB(SkGetPackedA32(maybePremulColor), SkGetPackedR32(maybePremulColor),
+					      SkGetPackedG32(maybePremulColor), SkGetPackedB32(maybePremulColor));
     };
 
     switch (this->colorType()) {

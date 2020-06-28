@@ -23,8 +23,11 @@
 namespace leveldb {
 namespace port {
 
-// Chromium only supports little endian.
+#if ARCH_CPU_LITTLE_ENDIAN
 static const bool kLittleEndian = true;
+#else
+static const bool kLittleEndian = false;
+#endif
 
 class LOCKABLE Mutex {
  public:

@@ -24,6 +24,7 @@ finally:
 _platforms = [
   'android',
   'android_webview',
+  'freebsd',
   'chromeos',
   'fuchsia',
   'ios',

@@ -169,6 +169,10 @@ void DecodeInfoCallback(png_struct* png_ptr, png_info* info_ptr) {
         png_set_bgr(png_ptr);
         png_set_add_alpha(png_ptr, 0xFF, PNG_FILLER_AFTER);
         break;
+      case PNGCodec::FORMAT_ARGB:
+        state->output_channels = 4;
+        png_set_add_alpha(png_ptr, 0xFF, PNG_FILLER_BEFORE);
+        break;
       case PNGCodec::FORMAT_SkBitmap:
         state->output_channels = 4;
         png_set_add_alpha(png_ptr, 0xFF, PNG_FILLER_AFTER);
@@ -182,6 +186,10 @@ void DecodeInfoCallback(png_struct* png_ptr, png_info* info_ptr) {
       case PNGCodec::FORMAT_BGRA:
         state->output_channels = 4;
         png_set_bgr(png_ptr);
+        break;
+      case PNGCodec::FORMAT_ARGB:
+        state->output_channels = 4;
+	png_set_swap_alpha(png_ptr);
         break;
       case PNGCodec::FORMAT_SkBitmap:
         state->output_channels = 4;
@@ -475,6 +483,8 @@ bool PNGCodec::Encode(const unsigned char* input,
     case FORMAT_BGRA:
       colorType = kBGRA_8888_SkColorType;
       break;
+    case FORMAT_ARGB:
+      return false;
     case FORMAT_SkBitmap:
       colorType = kN32_SkColorType;
       break;

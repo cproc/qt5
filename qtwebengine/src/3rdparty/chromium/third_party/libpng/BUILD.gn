@@ -93,6 +93,11 @@ source_set("libpng_sources") {
       "mips/filter_msa_intrinsics.c",
       "mips/mips_init.c",
     ]
+  } else if (current_cpu == "ppc64") {
+    sources += [
+      "powerpc/filter_vsx_intrinsics.c",
+      "powerpc/powerpc_init.c",
+    ]
   }
 
   configs -= [ "//build/config/compiler:chromium_code" ]

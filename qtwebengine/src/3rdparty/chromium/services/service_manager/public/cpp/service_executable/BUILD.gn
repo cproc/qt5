@@ -30,6 +30,11 @@ source_set("support") {
       "//sandbox/linux:seccomp_bpf",
     ]
   }
+  if (is_bsd) {
+    deps -= [
+      "//sandbox/linux:seccomp_bpf"
+    ]
+  }
 }
 
 # Service executable targets should link against this to get a boilerplate entry

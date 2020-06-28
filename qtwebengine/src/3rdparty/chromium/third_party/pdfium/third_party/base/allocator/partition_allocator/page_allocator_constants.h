@@ -13,7 +13,7 @@ namespace pdfium {
 namespace base {
 #if defined(OS_WIN)
 static constexpr size_t kPageAllocationGranularityShift = 16;  // 64KB
-#elif defined(_MIPS_ARCH_LOONGSON)
+#elif defined(_MIPS_ARCH_LOONGSON) || defined(ARCH_CPU_PPC64)
 static constexpr size_t kPageAllocationGranularityShift = 14;  // 16KB
 #else
 static constexpr size_t kPageAllocationGranularityShift = 12;  // 4KB

@@ -686,10 +686,6 @@ ChannelLayout ChannelLayoutToChromeChannelLayout(int64_t layout, int channels) {
   }
 }
 
-#if !defined(ARCH_CPU_LITTLE_ENDIAN)
-#error The code below assumes little-endianness.
-#endif
-
 VideoPixelFormat AVPixelFormatToVideoPixelFormat(AVPixelFormat pixel_format) {
   // The YUVJ alternatives are FFmpeg's (deprecated, but still in use) way to
   // specify a pixel format and full range color combination.

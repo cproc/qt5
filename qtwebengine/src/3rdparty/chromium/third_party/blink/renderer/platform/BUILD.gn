@@ -129,6 +129,7 @@ executable("character_data_generator") {
     "//build/win:default_exe_manifest",
     "//third_party/icu",
   ]
+  libs = [ "cxxrt" ]
 }
 
 # This isn't strictly necessary since we can just add the deps to "platform",

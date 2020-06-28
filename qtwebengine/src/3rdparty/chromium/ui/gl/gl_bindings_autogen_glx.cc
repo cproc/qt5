@@ -119,6 +119,8 @@ void DriverGLX::InitializeExtensionBindings() {
 
   ext.b_GLX_ARB_create_context =
       gfx::HasExtension(extensions, "GLX_ARB_create_context");
+  ext.b_GLX_ARB_get_proc_address =
+      gfx::HasExtension(extensions, "GLX_ARB_get_proc_address");
   ext.b_GLX_EXT_swap_control =
       gfx::HasExtension(extensions, "GLX_EXT_swap_control");
   ext.b_GLX_EXT_texture_from_pixmap =
@@ -147,6 +149,11 @@ void DriverGLX::InitializeExtensionBindings() {
     fn.glXCreateContextAttribsARBFn =
         reinterpret_cast<glXCreateContextAttribsARBProc>(
             GetGLProcAddress("glXCreateContextAttribsARB"));
+  }
+
+  if (ext.b_GLX_ARB_get_proc_address) {
+    fn.glXGetProcAddressARBFn = reinterpret_cast<glXGetProcAddressARBProc>(
+        GetGLProcAddress("glXGetProcAddressARB"));
   }
 
   if (ext.b_GLX_SGIX_fbconfig) {
@@ -348,6 +355,10 @@ bool GLXApiBase::glXGetMscRateOMLFn(Display* dpy,
                                     int32_t* numerator,
                                     int32_t* denominator) {
   return driver_->fn.glXGetMscRateOMLFn(dpy, drawable, numerator, denominator);
+}
+
+__GLXextFuncPtr GLXApiBase::glXGetProcAddressARBFn(const GLubyte* procName) {
+  return driver_->fn.glXGetProcAddressARBFn(procName);
 }
 
 void GLXApiBase::glXGetSelectedEventFn(Display* dpy,
@@ -648,6 +659,11 @@ bool TraceGLXApi::glXGetMscRateOMLFn(Display* dpy,
                                      int32_t* denominator) {
   TRACE_EVENT_BINARY_EFFICIENT0("gpu", "TraceGLAPI::glXGetMscRateOML")
   return glx_api_->glXGetMscRateOMLFn(dpy, drawable, numerator, denominator);
+}
+
+__GLXextFuncPtr TraceGLXApi::glXGetProcAddressARBFn(const GLubyte* procName) {
+  TRACE_EVENT_BINARY_EFFICIENT0("gpu", "TraceGLAPI::glXGetProcAddressARB")
+  return glx_api_->glXGetProcAddressARBFn(procName);
 }
 
 void TraceGLXApi::glXGetSelectedEventFn(Display* dpy,
@@ -1072,6 +1088,14 @@ bool DebugGLXApi::glXGetMscRateOMLFn(Display* dpy,
                  << static_cast<const void*>(denominator) << ")");
   bool result =
       glx_api_->glXGetMscRateOMLFn(dpy, drawable, numerator, denominator);
+  GL_SERVICE_LOG("GL_RESULT: " << result);
+  return result;
+}
+
+__GLXextFuncPtr DebugGLXApi::glXGetProcAddressARBFn(const GLubyte* procName) {
+  GL_SERVICE_LOG("glXGetProcAddressARB"
+                 << "(" << static_cast<const void*>(procName) << ")");
+  __GLXextFuncPtr result = glx_api_->glXGetProcAddressARBFn(procName);
   GL_SERVICE_LOG("GL_RESULT: " << result);
   return result;
 }

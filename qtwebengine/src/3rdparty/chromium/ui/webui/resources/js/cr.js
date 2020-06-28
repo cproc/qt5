@@ -464,6 +464,11 @@ var cr = cr || function(global) {
       return document;
     },
 
+    /** Whether this is on *BSD. */
+    get isBSD() {
+      return /BSD/.test(navigator.userAgent);
+    },
+
     /** Whether we are using a Mac or not. */
     get isMac() {
       return /Mac/.test(navigator.platform);

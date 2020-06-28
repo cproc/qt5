@@ -425,7 +425,7 @@ StoragePartitionImpl* StoragePartitionImplMap::Get(
   bool create_request_context = true;
   if (base::FeatureList::IsEnabled(network::features::kNetworkService)) {
     // These ifdefs should match StoragePartitionImpl::GetURLRequestContext.
-#if defined(OS_WIN) || defined(OS_MACOSX) || defined(OS_LINUX)
+#if defined(OS_WIN) || defined(OS_MACOSX) || defined(OS_LINUX) || defined(OS_BSD)
     create_request_context = false;
 #elif defined(OS_ANDROID)
     create_request_context =

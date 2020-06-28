@@ -20,6 +20,7 @@
             "webengine-printing-and-pdf": "boolean",
             "webengine-proprietary-codecs": "boolean",
             "webengine-pulseaudio": "boolean",
+            "webengine-sndio": "boolean",
             "webengine-spellchecker": "boolean",
             "webengine-native-spellchecker": "boolean",
             "webengine-extensions": "boolean",
@@ -32,6 +33,7 @@
             "webengine-qml": "boolean",
             "alsa": { "type": "boolean", "name": "webengine-alsa" },
             "pulseaudio": { "type": "boolean", "name": "webengine-pulseaudio" },
+            "sndio": { "type": "boolean", "name": "webengine-sndio" },
             "ffmpeg": { "type": "enum", "name": "webengine-system-ffmpeg", "values": { "system": "yes", "qt": "no" } },
             "opus": { "type": "enum", "name": "webengine-system-opus", "values": { "system": "yes", "qt": "no" } },
             "webp": { "type": "enum", "name": "webengine-system-libwebp", "values": { "system": "yes", "qt": "no" } },
@@ -145,6 +147,12 @@
             "label": "pulseaudio >= 0.9.10",
             "sources": [
                 { "type": "pkgConfig", "args": "libpulse >= 0.9.10 libpulse-mainloop-glib" }
+            ]
+        },
+        "sndio": {
+            "label": "sndio",
+            "sources": [
+                { "type": "pkgConfig", "args": "libsndio >= 1.5.0 libsndio" }
             ]
         },
         "webengine-icu": {
@@ -508,6 +516,10 @@
             "condition": "libs.pulseaudio",
             "output": [ "privateFeature" ]
         },
+        "webengine-sndio": {
+            "label": "Use sndio",
+            "output": [ "privateFeature" ]
+        },
         "webengine-pepper-plugins": {
             "label": "Pepper Plugins",
             "purpose": "Enables use of Pepper Flash plugins.",
@@ -791,6 +803,11 @@
                 {
                     "type": "feature",
                     "args": "webengine-pulseaudio",
+                    "condition": "config.unix"
+                },
+                {
+                    "type": "feature",
+                    "args": "webengine-sndio",
                     "condition": "config.unix"
                 },
                 {

@@ -3,4 +3,4 @@
 
 CONFIG-=qt
 
-linux:SOURCES += khr.cpp
+unix:SOURCES += khr.cpp

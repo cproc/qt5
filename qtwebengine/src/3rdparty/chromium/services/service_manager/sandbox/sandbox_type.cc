@@ -25,7 +25,7 @@ bool IsUnsandboxedSandboxType(SandboxType sandbox_type) {
           service_manager::features::kXRSandbox);
 #endif
     case SANDBOX_TYPE_AUDIO:
-#if defined(OS_WIN) || defined(OS_MACOSX) || defined(OS_LINUX)
+#if defined(OS_WIN) || defined(OS_MACOSX) || defined(OS_LINUX) || defined(OS_BSD)
       return !base::FeatureList::IsEnabled(
           service_manager::features::kAudioServiceSandbox);
 #else

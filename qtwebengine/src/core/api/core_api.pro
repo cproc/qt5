@@ -64,7 +64,7 @@ SOURCES = \
     qwebengineurlschemehandler.cpp
 
 ### Qt6 Remove this workaround
-unix:!isEmpty(QMAKE_LFLAGS_VERSION_SCRIPT):!static {
+linux:!isEmpty(QMAKE_LFLAGS_VERSION_SCRIPT):!static {
     CONFIG -= warning_clean
     SOURCES += qtbug-60565.cpp \
                qtbug-61521.cpp

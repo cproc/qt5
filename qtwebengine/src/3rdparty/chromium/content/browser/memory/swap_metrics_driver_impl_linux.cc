@@ -43,6 +43,7 @@ SwapMetricsDriverImplLinux::~SwapMetricsDriverImplLinux() = default;
 
 SwapMetricsDriver::SwapMetricsUpdateResult
 SwapMetricsDriverImplLinux::UpdateMetricsInternal(base::TimeDelta interval) {
+#if !defined(OS_BSD)
   base::VmStatInfo vmstat;
   if (!base::GetVmStatInfo(&vmstat)) {
     return SwapMetricsDriver::SwapMetricsUpdateResult::kSwapMetricsUpdateFailed;
@@ -55,12 +56,15 @@ SwapMetricsDriverImplLinux::UpdateMetricsInternal(base::TimeDelta interval) {
 
   if (interval.is_zero())
     return SwapMetricsDriver::SwapMetricsUpdateResult::
-        kSwapMetricsUpdateSuccess;
+    kSwapMetricsUpdateSuccess;
 
   delegate_->OnSwapInCount(in_counts, interval);
   delegate_->OnSwapOutCount(out_counts, interval);
 
   return SwapMetricsDriver::SwapMetricsUpdateResult::kSwapMetricsUpdateSuccess;
+#else
+  return SwapMetricsDriver::SwapMetricsUpdateResult::kSwapMetricsUpdateFailed;
+#endif
 }
 
 }  // namespace content

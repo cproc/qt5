@@ -69,7 +69,7 @@ class HeadlessRequestContextManager {
   std::unique_ptr<HeadlessProxyConfigMonitor> proxy_config_monitor_;
   bool is_system_context_;
 
-#if defined(OS_LINUX) && !defined(OS_CHROMEOS)
+#if (defined(OS_LINUX) && !defined(OS_CHROMEOS)) || defined(OS_BSD)
   ::network::mojom::CryptConfigPtr crypt_config_;
 #endif
 

@@ -171,7 +171,7 @@ InspectorMemoryAgent::GetSamplingProfileById(uint32_t id) {
 
 std::vector<std::string> InspectorMemoryAgent::Symbolize(
     const std::vector<void*>& addresses) {
-#if defined(OS_LINUX)
+#if defined(OS_LINUX) || defined(OS_BSD)
   // TODO(alph): Move symbolization to the client.
   std::vector<void*> addresses_to_symbolize;
   for (void* address : addresses) {

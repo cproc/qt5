@@ -64,6 +64,9 @@ config("media_config") {
   if (use_cras) {
     defines += [ "USE_CRAS" ]
   }
+  if (use_sndio) {
+    defines += [ "USE_SNDIO" ]
+  }
 }
 
 # Internal grouping of the configs necessary to support sub-folders having their

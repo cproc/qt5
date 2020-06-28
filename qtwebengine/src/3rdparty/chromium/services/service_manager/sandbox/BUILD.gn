@@ -28,7 +28,7 @@ component("sandbox") {
     "//base",
     "//sandbox:common",
   ]
-  if (is_linux) {
+  if (is_linux && !is_bsd) {
     sources += [
       "linux/bpf_audio_policy_linux.cc",
       "linux/bpf_audio_policy_linux.h",

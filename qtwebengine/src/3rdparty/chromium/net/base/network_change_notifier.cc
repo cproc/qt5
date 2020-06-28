@@ -221,7 +221,6 @@ NetworkChangeNotifier* NetworkChangeNotifier::Create() {
 #elif defined(OS_FUCHSIA)
   return new NetworkChangeNotifierFuchsia(0 /* required_features */);
 #else
-  NOTIMPLEMENTED();
   return NULL;
 #endif
 }
@@ -429,7 +428,7 @@ void NetworkChangeNotifier::LogOperatorCodeHistogram(ConnectionType type) {
 #endif
 }
 
-#if defined(OS_LINUX)
+#if defined(OS_LINUX) || defined(OS_BSD)
 // static
 const internal::AddressTrackerLinux*
 NetworkChangeNotifier::GetAddressTracker() {
@@ -678,7 +677,7 @@ NetworkChangeNotifier::NetworkChangeNotifier(
   network_change_calculator_->Init();
 }
 
-#if defined(OS_LINUX)
+#if defined(OS_LINUX) || defined(OS_BSD)
 const internal::AddressTrackerLinux*
 NetworkChangeNotifier::GetAddressTrackerInternal() const {
   return NULL;

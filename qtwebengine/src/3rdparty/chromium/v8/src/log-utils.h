@@ -16,6 +16,8 @@
 #include "src/flags.h"
 #include "src/ostreams.h"
 
+#include <stdarg.h>
+
 namespace v8 {
 namespace internal {
 

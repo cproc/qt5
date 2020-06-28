@@ -65,11 +65,11 @@ static uint32 UNALIGNED_LOAD32(const char *p) {
 #define bswap_64(x) OSSwapInt64(x)
 
 #else
-#include <byteswap.h>
+#include <sys/endian.h>
 #endif
 
-#define uint32_in_expected_order(x) (bswap_32(x))
-#define uint64_in_expected_order(x) (bswap_64(x))
+#define uint32_in_expected_order(x) (bswap32(x))
+#define uint64_in_expected_order(x) (bswap64(x))
 
 #endif  // __BIG_ENDIAN__
 

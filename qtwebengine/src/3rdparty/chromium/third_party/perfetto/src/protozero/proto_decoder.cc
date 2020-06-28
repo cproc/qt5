@@ -29,7 +29,8 @@ using namespace proto_utils;
 #define BYTE_SWAP_TO_LE32(x) (x)
 #define BYTE_SWAP_TO_LE64(x) (x)
 #else
-#error Unimplemented for big endian archs.
+#define BYTE_SWAP_TO_LE32(x) __builtin_bswap32(x)
+#define BYTE_SWAP_TO_LE64(x) __builtin_bswap64(x)
 #endif
 
 ProtoDecoder::Field ProtoDecoder::ReadField() {

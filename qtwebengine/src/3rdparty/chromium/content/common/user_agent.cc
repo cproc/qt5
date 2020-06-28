@@ -131,6 +131,14 @@ std::string BuildOSCpuInfo(bool include_android_build_number) {
 #endif
   );  // NOLINT
 
+#if defined(OS_BSD)
+#if defined(__x86_64__)
+  base::StringAppendF(&os_cpu, "; Linux x86_64");
+#else
+  base::StringAppendF(&os_cpu, "; Linux i686");
+#endif
+#endif
+
   return os_cpu;
 }
 

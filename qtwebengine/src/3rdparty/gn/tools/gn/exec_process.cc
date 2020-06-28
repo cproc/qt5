@@ -23,6 +23,9 @@
 #include <fcntl.h>
 #include <sys/signal.h>
 #include <sys/wait.h>
+#if defined(OS_BSD)
+#include <sys/signal.h>
+#endif
 #include <unistd.h>
 
 #include "base/posix/eintr_wrapper.h"

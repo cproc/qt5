@@ -20,7 +20,7 @@
 #include <intrin.h>
 #endif
 
-#if defined(__powerpc__) || defined(__ppc__)
+#if (defined(__powerpc__) || defined(__ppc__)) && defined(__GLIBC__)
 #include <sys/platform/ppc.h>
 #endif
 
@@ -53,7 +53,7 @@ double UnscaledCycleClock::Frequency() {
   return base_internal::NominalCPUFrequency();
 }
 
-#elif defined(__powerpc__) || defined(__ppc__)
+#elif (defined(__powerpc__) || defined(__ppc__)) && defined(__GLIBC__)
 
 int64_t UnscaledCycleClock::Now() {
   return __ppc_get_timebase();

@@ -73,6 +73,7 @@ defineReplace(gnArgs) {
     linux: include($$QTWEBENGINE_ROOT/src/core/config/linux.pri)
     macos: include($$QTWEBENGINE_ROOT/src/core/config/mac_osx.pri)
     win32: include($$QTWEBENGINE_ROOT/src/core/config/windows.pri)
+    freebsd: include($$QTWEBENGINE_ROOT/src/core/config/freebsd.pri)
     isEmpty(gn_args): error(No gn_args found please make sure you have valid configuration.)
     return($$gn_args)
 }
@@ -85,6 +86,7 @@ defineReplace(gnArch) {
     contains(qtArch, "arm64"): return(arm64)
     contains(qtArch, "mips"): return(mipsel)
     contains(qtArch, "mips64"): return(mips64el)
+    contains(qtArch, "power64"): return(ppc64)
     return(unknown)
 }
 
@@ -92,6 +94,7 @@ defineReplace(gnOS) {
     macos: return(mac)
     win32: return(win)
     linux: return(linux)
+    freebsd: return(freebsd)
     error(Unsupported platform)
     return(unknown)
 }
