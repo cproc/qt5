@@ -67,7 +67,7 @@
 #include <algorithm>
 
 #if (XCB_SHM_MAJOR_VERSION == 1 && XCB_SHM_MINOR_VERSION >= 2) || XCB_SHM_MAJOR_VERSION > 1
-#define XCB_USE_SHM_FD
+//#define XCB_USE_SHM_FD
 #endif
 
 QT_BEGIN_NAMESPACE

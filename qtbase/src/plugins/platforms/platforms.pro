@@ -38,9 +38,9 @@ qtConfig(linuxfb): SUBDIRS += linuxfb
 
 qtHaveModule(network):qtConfig(vnc): SUBDIRS += vnc
 
-freebsd {
-    SUBDIRS += bsdfb
-}
+#freebsd {
+#    SUBDIRS += bsdfb
+#}
 
 haiku {
     SUBDIRS += haiku

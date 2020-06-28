@@ -58,7 +58,6 @@ SOURCES += \
         io/qfileinfo.cpp \
         io/qipaddress.cpp \
         io/qiodevice.cpp \
-        io/qlockfile.cpp \
         io/qnoncontiguousbytedevice.cpp \
         io/qstorageinfo.cpp \
         io/qtemporarydir.cpp \
@@ -78,6 +77,8 @@ SOURCES += \
         io/qfileselector.cpp \
         io/qloggingcategory.cpp \
         io/qloggingregistry.cpp
+
+#        io/qlockfile.cpp \
 
 qtConfig(zstd): QMAKE_USE_PRIVATE += zstd
 
@@ -165,18 +166,22 @@ win32 {
                 io/qstorageinfo_stub.cpp
     }
 } else:unix {
+#        SOURCES += \
+#                io/qfsfileengine_unix.cpp \
+#                io/qfilesystemengine_unix.cpp \
+#                io/qlockfile_unix.cpp \
+#                io/qfilesystemiterator_unix.cpp
         SOURCES += \
                 io/qfsfileengine_unix.cpp \
                 io/qfilesystemengine_unix.cpp \
-                io/qlockfile_unix.cpp \
                 io/qfilesystemiterator_unix.cpp
 
-        !integrity:!uikit {
-            SOURCES += io/forkfd_qt.cpp
-            HEADERS += \
-                     ../3rdparty/forkfd/forkfd.h
-            INCLUDEPATH += ../3rdparty/forkfd
-        }
+#        !integrity:!uikit {
+#            SOURCES += io/forkfd_qt.cpp
+#            HEADERS += \
+#                     ../3rdparty/forkfd/forkfd.h
+#            INCLUDEPATH += ../3rdparty/forkfd
+#        }
         mac {
             SOURCES += io/qstorageinfo_mac.cpp
             qtConfig(processenvironment): \

@@ -214,7 +214,7 @@ static QNetworkInterfacePrivate *findInterface(int socket, QList<QNetworkInterfa
     // Get the interface index
 #  ifdef SIOCGIFINDEX
     if (qt_safe_ioctl(socket, SIOCGIFINDEX, &req) >= 0)
-#    if defined(Q_OS_HAIKU)
+#    if defined(Q_OS_HAIKU) || defined(Q_OS_FREEBSD)
         ifindex = req.ifr_index;
 #    else
         ifindex = req.ifr_ifindex;

@@ -19,6 +19,6 @@ qtConfig(libinput) {
     SUBDIRS += libinput
 }
 
-freebsd {
-    SUBDIRS += bsdkeyboard bsdmouse
-}
+#freebsd {
+#    SUBDIRS += bsdkeyboard bsdmouse
+#}

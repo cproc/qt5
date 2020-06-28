@@ -1420,11 +1420,13 @@ void QConfFileSettingsPrivate::syncConfFile(QConfFile *confFile)
         We only need to lock if we are actually writing as only concurrent writes are a problem.
         Concurrent read and write are not a problem because the writing operation is atomic.
     */
+#if 0
     QLockFile lockFile(confFile->name + QLatin1String(".lock"));
     if (!readOnly && !lockFile.lock() && atomicSyncOnly) {
         setStatus(QSettings::AccessError);
         return;
     }
+#endif
 #endif
 
     /*
