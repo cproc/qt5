@@ -117,7 +117,15 @@ std::string NinjaActionTargetWriter::WriteRuleDefinition() {
     // each invocation of the rule gets a different response file. This isn't
     // strictly necessary for regular one-shot actions, but it's easier to
     // just always define unique_name.
+
+    // filename too long issue.
     std::string rspfile = custom_rule_name;
+
+    std::hash<std::string> hash_fn;
+    size_t hash_id = hash_fn(rspfile);
+
+    rspfile = std::to_string(hash_id);
+
     if (!target_->sources().empty())
       rspfile += ".$unique_name";
     rspfile += ".rsp";
