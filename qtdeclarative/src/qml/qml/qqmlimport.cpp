@@ -1924,6 +1924,9 @@ QString QQmlImportDatabase::resolvePlugin(QQmlTypeLoader *typeLoader,
         QLatin1String(".so"),
         QLatin1String(".bundle")
     };
+#elif defined(Q_OS_GENODE)
+    static const QString prefix = QLatin1String("lib");
+    static const QStringList suffixes = { QLatin1String(".lib.so") };
 # else  // Unix
     static const QString prefix = QLatin1String("lib");
     static const QStringList suffixes = { QLatin1String(".so") };
