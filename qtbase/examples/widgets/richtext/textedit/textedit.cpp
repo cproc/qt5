@@ -451,7 +451,8 @@ void TextEdit::fileOpen()
     QFileDialog fileDialog(this, tr("Open File..."));
     fileDialog.setAcceptMode(QFileDialog::AcceptOpen);
     fileDialog.setFileMode(QFileDialog::ExistingFile);
-    fileDialog.setMimeTypeFilters(QStringList() << "text/html" << "text/plain");
+    fileDialog.setMimeTypeFilters(QStringList() << "text/html" << "text/plain" << "application/octet-stream");
+    fileDialog.selectMimeTypeFilter("application/octet-stream");
     if (fileDialog.exec() != QDialog::Accepted)
         return;
     const QString fn = fileDialog.selectedFiles().first();
@@ -468,7 +469,12 @@ bool TextEdit::fileSave()
     if (fileName.startsWith(QStringLiteral(":/")))
         return fileSaveAs();
 
-    QTextDocumentWriter writer(fileName);
+    /* if the file name has no extension, assume plain text */
+    QByteArray format = QByteArray();
+    if (fileName.indexOf(".", 1) == -1)
+        format = "plaintext";
+
+    QTextDocumentWriter writer(fileName, format);
     bool success = writer.write(textEdit->document());
     if (success) {
         textEdit->document()->setModified(false);
@@ -485,9 +491,10 @@ bool TextEdit::fileSaveAs()
     QFileDialog fileDialog(this, tr("Save as..."));
     fileDialog.setAcceptMode(QFileDialog::AcceptSave);
     QStringList mimeTypes;
-    mimeTypes << "application/vnd.oasis.opendocument.text" << "text/html" << "text/plain";
+    mimeTypes << "application/vnd.oasis.opendocument.text" << "text/html" << "text/plain" << "application/octet-stream";
     fileDialog.setMimeTypeFilters(mimeTypes);
-    fileDialog.setDefaultSuffix("odt");
+    fileDialog.selectMimeTypeFilter("application/octet-stream");
+    //fileDialog.setDefaultSuffix("odt");
     if (fileDialog.exec() != QDialog::Accepted)
         return false;
     const QString fn = fileDialog.selectedFiles().first();
