@@ -1,0 +1,11 @@
+QT.gui_private.VERSION = 5.13.2
+QT.gui_private.name = QtGui
+QT.gui_private.module =
+QT.gui_private.libs = $$QT_MODULE_LIB_BASE
+QT.gui_private.includes = $$QT_MODULE_INCLUDE_BASE/QtGui/5.13.2 $$QT_MODULE_INCLUDE_BASE/QtGui/5.13.2/QtGui
+QT.gui_private.frameworks =
+QT.gui_private.depends = core_private gui
+QT.gui_private.uses =
+QT.gui_private.module_config = v2 internal_module
+QT.gui_private.enabled_features = egl eglfs freetype gif harfbuzz ico jpeg multiprocess png tuiotouch vnc
+QT.gui_private.disabled_features = xkbcommon xcb accessibility-atspi-bridge angle_d3d11_qdtd direct2d direct2d1_1 dxgi direct3d11 direct3d11_1 direct3d9 directfb drm_atomic dxgi1_2 dxguid egl_x11 eglfs_brcm kms eglfs_egldevice eglfs_gbm eglfs_mali eglfs_openwfd eglfs_rcar eglfs_viv eglfs_viv_wl eglfs_vsp2 xlib xcb-xlib eglfs_x11 evdev system-freetype fontconfig integrityfb integrityhid libinput libinput-axis-api linuxfb mirclient mtdev system-harfbuzz system-jpeg system-png system-xcb tslib vsp2
