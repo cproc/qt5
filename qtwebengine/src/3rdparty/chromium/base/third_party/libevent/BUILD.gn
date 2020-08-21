@@ -56,20 +56,20 @@ static_library("bundled_libevent") {
     ]
     include_dirs = [ "linux" ]
   } else if (is_bsd) {
-    sources += [ 
-      "kqueue.c",
-      "freebsd/config.h",
-      "freebsd/event-config.h",
-    ]
-    include_dirs = [ "freebsd" ]
-  } else if (is_android) {
-    sources += [
-      "android/config.h",
-      "android/event-config.h",
-      "epoll.c",
-    ]
-    include_dirs = [ "android" ]
-  } else if (is_nacl_nonsfi) {
+#    sources += [ 
+#      "kqueue.c",
+#      "freebsd/config.h",
+#      "freebsd/event-config.h",
+#    ]
+#    include_dirs = [ "freebsd" ]
+#  } else if (is_android) {
+#    sources += [
+#      "android/config.h",
+#      "android/event-config.h",
+#      "epoll.c",
+#    ]
+#    include_dirs = [ "android" ]
+#  } else if (is_nacl_nonsfi) {
     sources -= [
       "evdns.c",
       "event_tagging.c",

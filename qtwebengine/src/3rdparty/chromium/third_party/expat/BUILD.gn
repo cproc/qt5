@@ -11,7 +11,7 @@ import("//testing/libfuzzer/fuzzer_test.gni")
 # Libfuzzer and AFL need to build library from sources.
 if (is_linux && !is_chromecast && !use_fuzzing_engine) {
   config("expat_config") {
-    libs = [ "expat" ]
+    #libs = [ "expat" ]
   }
 
   group("expat") {

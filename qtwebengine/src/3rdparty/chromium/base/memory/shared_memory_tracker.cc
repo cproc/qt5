@@ -10,6 +10,8 @@
 #include "base/trace_event/memory_dump_manager.h"
 #include "base/trace_event/process_memory_dump.h"
 
+#define DCHECK(x)
+
 namespace base {
 
 const char SharedMemoryTracker::kDumpRootName[] = "shared_memory";

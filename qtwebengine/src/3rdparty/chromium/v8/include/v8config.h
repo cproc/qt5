@@ -13,7 +13,9 @@
 #elif defined(__APPLE__)
 # include <TargetConditionals.h>
 #elif defined(__linux__)
+#if 0
 # include <features.h>
+#endif
 #endif
 
 
@@ -96,6 +98,9 @@
 # define V8_OS_BSD 1
 # define V8_OS_FREEBSD 1
 # define V8_OS_POSIX 1
+#if defined (__GENODE__)
+# define V8_OS_GENODE 1
+#endif
 #elif defined(__Fuchsia__)
 # define V8_OS_FUCHSIA 1
 # define V8_OS_POSIX 1

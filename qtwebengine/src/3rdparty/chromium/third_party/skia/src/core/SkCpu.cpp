@@ -75,12 +75,16 @@
 
     static uint32_t read_cpu_features() {
         uint32_t features = 0;
+#if !defined(__GENODE__)
         uint64_t id_aa64isar0;
 
         id_aa64isar0 = READ_SPECIALREG(ID_AA64ISAR0_EL1);
         if (ID_AA64ISAR0_CRC32(id_aa64isar0) == ID_AA64ISAR0_CRC32_BASE) {
+#endif
             features |= SkCpu::CRC32;
+#if !defined(__GENODE__)
         }
+#endif
         return features;
     }
 

@@ -23,7 +23,7 @@ SandboxHostLinux* SandboxHostLinux::GetInstance() {
 void SandboxHostLinux::Init() {
   DCHECK(!initialized_);
   initialized_ = true;
-
+#if 0
   int fds[2];
   // We use SOCK_SEQPACKET rather than SOCK_DGRAM to prevent the sandboxed
   // processes from sending datagrams to other sockets on the system. The
@@ -52,6 +52,7 @@ void SandboxHostLinux::Init() {
   ipc_thread_.reset(
       new base::DelegateSimpleThread(ipc_handler_.get(), "sandbox_ipc_thread"));
   ipc_thread_->Start();
+#endif
 }
 
 }  // namespace content

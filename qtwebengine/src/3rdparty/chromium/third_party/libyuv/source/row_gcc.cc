@@ -3658,7 +3658,7 @@ void SplitRGBRow_SSSE3(const uint8_t* src_rgb,
         "+r"(dst_r),               // %1
         "+r"(dst_g),               // %2
         "+r"(dst_b),               // %3
-        "+r"(width)                // %4
+        "+rm"(width)                // %4
       : "m"(kShuffleMaskRGBToR0),  // %5
         "m"(kShuffleMaskRGBToR1),  // %6
         "m"(kShuffleMaskRGBToR2),  // %7
@@ -3754,7 +3754,7 @@ void MergeRGBRow_SSSE3(const uint8_t* src_r,
         "+r"(src_g),               // %1
         "+r"(src_b),               // %2
         "+r"(dst_rgb),             // %3
-        "+r"(width)                // %4
+        "+rm"(width)                // %4
       : "m"(kShuffleMaskRToRGB0),  // %5
         "m"(kShuffleMaskGToRGB0),  // %6
         "m"(kShuffleMaskBToRGB0),  // %7

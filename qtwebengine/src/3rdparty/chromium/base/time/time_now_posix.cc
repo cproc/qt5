@@ -108,6 +108,9 @@ bool TimeTicks::IsConsistentAcrossProcesses() {
 
 namespace subtle {
 ThreadTicks ThreadTicksNowIgnoringOverride() {
+#if defined(OS_GENODE)
+  return ThreadTicks();
+#else
 #if (defined(_POSIX_THREAD_CPUTIME) && (_POSIX_THREAD_CPUTIME >= 0)) || \
     defined(OS_ANDROID)
   return ThreadTicks() +
@@ -116,6 +119,7 @@ ThreadTicks ThreadTicksNowIgnoringOverride() {
   NOTREACHED();
   return ThreadTicks();
 #endif
+#endif /* OS_GENODE */
 }
 }  // namespace subtle
 

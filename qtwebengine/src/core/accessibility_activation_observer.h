@@ -40,6 +40,8 @@
 #ifndef ACCESSIBILITY_ACTIVATION_OBSERVER_H
 #define ACCESSIBILITY_ACTIVATION_OBSERVER_H
 
+#include <QtGui/qtguiglobal.h>
+
 #ifndef QT_NO_ACCESSIBILITY
 #include <QtGui/qaccessible.h>
 

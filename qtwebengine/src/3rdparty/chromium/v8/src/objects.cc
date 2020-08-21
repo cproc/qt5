@@ -2136,8 +2136,10 @@ void JSObject::SetNormalizedProperty(Handle<JSObject> object,
     int entry = dictionary->FindEntry(ReadOnlyRoots(isolate), name, hash);
 
     if (entry == GlobalDictionary::kNotFound) {
+#if 0
       DCHECK_IMPLIES(global_obj->map()->is_prototype_map(),
                      Map::IsPrototypeChainInvalidated(global_obj->map()));
+#endif
       auto cell = isolate->factory()->NewPropertyCell(name);
       cell->set_value(*value);
       auto cell_type = value->IsUndefined(isolate)

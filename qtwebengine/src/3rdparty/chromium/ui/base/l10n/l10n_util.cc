@@ -717,6 +717,7 @@ base::string16 GetStringFUTF16(int message_id,
   ui::ResourceBundle& rb = ui::ResourceBundle::GetSharedInstance();
   const base::string16& format_string = rb.GetLocalizedString(message_id);
 
+#if 0
 #ifndef NDEBUG
   // Make sure every replacement string is being used, so we don't just
   // silently fail to insert one. If |offsets| is non-NULL, then don't do this
@@ -741,6 +742,7 @@ base::string16 GetStringFUTF16(int message_id,
       }
     }
   }
+#endif
 #endif
 
   base::string16 formatted = base::ReplaceStringPlaceholders(

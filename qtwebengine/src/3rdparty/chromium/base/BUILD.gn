@@ -1731,7 +1731,7 @@ jumbo_component("base") {
       "system/sys_info_linux.cc",
     ]
 
-    defines += [ "USE_SYMBOLIZE" ]
+    #defines += [ "USE_SYMBOLIZE" ]
 
     # These dependencies are not required on Android, and in the case
     # of xdg_mime must be excluded due to licensing restrictions.

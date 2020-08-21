@@ -80,13 +80,13 @@ void *av_malloc(size_t size)
     if (max_alloc_size && size > (max_alloc_size - 32))
         return NULL;
 
-#if HAVE_POSIX_MEMALIGN
+#if HAVE_POSIX_MEMALIGN && 0
     if (size) //OS X on SDK 10.6 has a broken posix_memalign implementation
     if (posix_memalign(&ptr, ALIGN, size))
         ptr = NULL;
 #elif HAVE_ALIGNED_MALLOC
     ptr = _aligned_malloc(size, ALIGN);
-#elif HAVE_MEMALIGN
+#elif HAVE_MEMALIGN && 0
 #ifndef __DJGPP__
     ptr = memalign(ALIGN, size);
 #else

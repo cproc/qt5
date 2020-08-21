@@ -53,7 +53,9 @@ bool PathProviderPosix(int key, FilePath* result) {
       // including the string terminator.
       int error = sysctl(name, 4, bin_dir, &length, NULL, 0);
       if (error < 0 || length <= 1) {
+#if 0
         NOTREACHED() << "Unable to resolve path.";
+#endif
         return false;
       }
       *result = FilePath(FilePath::StringType(bin_dir, length - 1));

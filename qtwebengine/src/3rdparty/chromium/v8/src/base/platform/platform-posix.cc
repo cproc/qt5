@@ -320,6 +320,26 @@ bool OS::Release(void* address, size_t size) {
   return munmap(address, size) == 0;
 }
 
+
+#if defined(V8_OS_GENODE)
+
+#include <libc/genode.h>
+
+extern "C" int mprotect(void *addr, ::size_t len, int prot)
+{
+	/*
+	 * At least flush the cache for the area if it is to be made executable.
+	 * This is usually done by the Linux kernel and probably needed for ARM.
+	 */
+
+	if (prot & PROT_EXEC)
+		genode_cache_coherent(addr, len);
+
+	return 0;
+}
+#endif /* OS_GENODE */
+
+
 // static
 bool OS::SetPermissions(void* address, size_t size, MemoryPermission access) {
   DCHECK_EQ(0, reinterpret_cast<uintptr_t>(address) % CommitPageSize());
@@ -503,7 +523,7 @@ int OS::GetCurrentThreadId() {
   return static_cast<int>(gettid());
 #elif V8_OS_DRAGONFLYBSD || defined(__DragonFly__)
   return static_cast<int>(lwp_gettid());
-#elif V8_OS_FREEBSD
+#elif V8_OS_FREEBSD && 0
   return static_cast<int>(pthread_getthreadid_np());
 #elif V8_OS_NETBSD
   return static_cast<int>(_lwp_self());
@@ -717,7 +737,7 @@ Thread::~Thread() {
 
 
 static void SetThreadName(const char* name) {
-#if V8_OS_DRAGONFLYBSD || V8_OS_FREEBSD || V8_OS_OPENBSD
+#if (V8_OS_DRAGONFLYBSD || V8_OS_FREEBSD || V8_OS_OPENBSD) && 0
   pthread_set_name_np(pthread_self(), name);
 #elif V8_OS_NETBSD
   STATIC_ASSERT(Thread::kMaxThreadNameLength <= PTHREAD_MAX_NAMELEN_NP);

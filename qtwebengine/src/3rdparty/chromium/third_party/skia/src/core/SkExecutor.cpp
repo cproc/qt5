@@ -58,7 +58,7 @@ static inline std::function<void(void)> pop(SkTArray<std::function<void(void)>>*
     list->pop_back();
     return fn;
 }
-
+#if 0
 // An SkThreadPool is an executor that runs work on a fixed pool of OS threads.
 template <typename WorkList>
 class SkThreadPool final : public SkExecutor {
@@ -130,12 +130,20 @@ private:
     Lock                  fWorkLock;
     SkSemaphore           fWorkAvailable;
 };
-
+#endif
 std::unique_ptr<SkExecutor> SkExecutor::MakeFIFOThreadPool(int threads) {
     using WorkList = std::deque<std::function<void(void)>>;
+#if 0
     return skstd::make_unique<SkThreadPool<WorkList>>(threads > 0 ? threads : num_cores());
+#else
+	return nullptr;
+#endif
 }
 std::unique_ptr<SkExecutor> SkExecutor::MakeLIFOThreadPool(int threads) {
     using WorkList = SkTArray<std::function<void(void)>>;
+#if 0
     return skstd::make_unique<SkThreadPool<WorkList>>(threads > 0 ? threads : num_cores());
+#else
+    return nullptr;
+#endif
 }

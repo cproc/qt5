@@ -203,7 +203,7 @@
 #define HAVE_VASPRINTF 1
 
 /* Define if kqueue works correctly with pipes */
-#define HAVE_WORKING_KQUEUE 1
+/*#define HAVE_WORKING_KQUEUE 1*/
 
 /* Name of package */
 #define PACKAGE "libevent"

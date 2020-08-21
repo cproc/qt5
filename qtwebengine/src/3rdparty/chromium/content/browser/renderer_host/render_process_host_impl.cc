@@ -1779,8 +1779,10 @@ bool RenderProcessHostImpl::Init() {
   // Find the renderer before creating the channel so if this fails early we
   // return without creating the channel.
   base::FilePath renderer_path = ChildProcessHost::GetChildPath(flags);
+#if 0
   if (renderer_path.empty())
     return false;
+#endif
 
   is_initialized_ = true;
   is_dead_ = false;

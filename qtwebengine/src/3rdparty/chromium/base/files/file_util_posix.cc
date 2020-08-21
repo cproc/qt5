@@ -407,7 +407,7 @@ bool CopyDirectoryExcl(const FilePath& from_path,
 #endif  // !defined(OS_NACL_NONSFI)
 
 bool CreateLocalNonBlockingPipe(int fds[2]) {
-#if defined(OS_LINUX) || defined(OS_BSD)
+#if (defined(OS_LINUX) || defined(OS_BSD)) && 0
   return pipe2(fds, O_CLOEXEC | O_NONBLOCK) == 0;
 #else
   int raw_fds[2];
@@ -441,6 +441,7 @@ bool SetNonBlocking(int fd) {
 }
 
 bool SetCloseOnExec(int fd) {
+#if 0
 #if defined(OS_NACL_NONSFI)
   const int flags = 0;
 #else
@@ -452,6 +453,7 @@ bool SetCloseOnExec(int fd) {
 #endif  // defined(OS_NACL_NONSFI)
   if (HANDLE_EINTR(fcntl(fd, F_SETFD, flags | FD_CLOEXEC)) == -1)
     return false;
+#endif
   return true;
 }
 
@@ -833,7 +835,12 @@ int ReadFile(const FilePath& filename, char* data, int max_size) {
 
 int WriteFile(const FilePath& filename, const char* data, int size) {
   ScopedBlockingCall scoped_blocking_call(BlockingType::MAY_BLOCK);
+#if defined(OS_GENODE)
+  /* 'creat' is currently not implemented on Genode */
+  int fd = HANDLE_EINTR(open(filename.value().c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0666));
+#else
   int fd = HANDLE_EINTR(creat(filename.value().c_str(), 0666));
+#endif
   if (fd < 0)
     return -1;
 
@@ -1001,6 +1008,9 @@ bool GetShmemTempDir(bool executable, FilePath* path) {
     *path = FilePath("/dev/shm");
     return true;
   }
+#elif defined(OS_FREEBSD)
+  *path = FilePath("/shm");
+  return true;
 #endif  // defined(OS_LINUX) || defined(OS_AIX)
   return GetTempDir(path);
 }

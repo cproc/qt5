@@ -428,7 +428,9 @@ WebEngineContext::WebEngineContext()
 
     base::CommandLine* parsedCommandLine = commandLine();
 
+#if !defined(Q_OS_GENODE)
     parsedCommandLine->AppendSwitchPath(switches::kBrowserSubprocessPath, WebEngineLibraryInfo::getPath(content::CHILD_PROCESS_EXE));
+#endif
 
     // Enable sandboxing on OS X and Linux (Desktop / Embedded) by default.
     bool disable_sandbox = qEnvironmentVariableIsSet(kDisableSandboxEnv);

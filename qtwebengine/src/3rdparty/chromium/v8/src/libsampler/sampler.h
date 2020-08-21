@@ -5,6 +5,8 @@
 #ifndef V8_LIBSAMPLER_SAMPLER_H_
 #define V8_LIBSAMPLER_SAMPLER_H_
 
+#include <pthread.h>
+
 #include <atomic>
 #include <unordered_map>
 

@@ -126,6 +126,7 @@ bool IfaddrsToNetworkInterfaceList(int policy,
                                    const ifaddrs* interfaces,
                                    IPAttributesGetter* ip_attributes_getter,
                                    NetworkInterfaceList* networks) {
+#if 0
   // Enumerate the addresses assigned to network interfaces which are up.
   for (const ifaddrs* interface = interfaces; interface != NULL;
        interface = interface->ifa_next) {
@@ -203,7 +204,7 @@ bool IfaddrsToNetworkInterfaceList(int policy,
           address.address(), prefix_length, ip_attributes));
     }
   }
-
+#endif
   return true;
 }
 

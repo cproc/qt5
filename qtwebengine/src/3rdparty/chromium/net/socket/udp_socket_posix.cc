@@ -68,7 +68,7 @@ const int kActivityMonitorMinimumSamplesForThroughputEstimate = 2;
 const base::TimeDelta kActivityMonitorMsThreshold =
     base::TimeDelta::FromMilliseconds(100);
 
-#if defined(OS_MACOSX) || defined(OS_BSD)
+#if (defined(OS_MACOSX) || defined(OS_BSD)) && 0
 // When enabling multicast using setsockopt(IP_MULTICAST_IF) MacOS
 // requires passing IPv4 address instead of interface index. This function
 // resolves IPv4 address by interface index. The |address| is returned in
@@ -940,7 +940,7 @@ int UDPSocketPosix::SetMulticastOptions() {
   if (multicast_interface_ != 0) {
     switch (addr_family_) {
       case AF_INET: {
-#if defined(OS_MACOSX) || defined(OS_BSD)
+#if (defined(OS_MACOSX) || defined(OS_BSD)) && 0
         ip_mreq mreq = {};
         int error = GetIPv4AddressFromIndex(socket_, multicast_interface_,
                                             &mreq.imr_interface.s_addr);
@@ -952,7 +952,7 @@ int UDPSocketPosix::SetMulticastOptions() {
         mreq.imr_address.s_addr = htonl(INADDR_ANY);
 #endif  //  !defined(OS_MACOSX) || defined(OS_BSD)
         int rv = setsockopt(socket_, IPPROTO_IP, IP_MULTICAST_IF,
-#if defined(OS_BSD)
+#if defined(OS_BSD) && 0
                             reinterpret_cast<const char*>(&mreq.imr_interface.s_addr),
                             sizeof(mreq.imr_interface.s_addr));
 #else
@@ -1019,7 +1019,7 @@ int UDPSocketPosix::JoinGroup(const IPAddress& group_address) const {
       if (addr_family_ != AF_INET)
         return ERR_ADDRESS_INVALID;
 
-#if defined(OS_MACOSX) || defined(OS_BSD)
+#if (defined(OS_MACOSX) || defined(OS_BSD)) && 0
       ip_mreq mreq = {};
       int error = GetIPv4AddressFromIndex(socket_, multicast_interface_,
                                           &mreq.imr_interface.s_addr);
@@ -1067,7 +1067,7 @@ int UDPSocketPosix::LeaveGroup(const IPAddress& group_address) const {
     case IPAddress::kIPv4AddressSize: {
       if (addr_family_ != AF_INET)
         return ERR_ADDRESS_INVALID;
-#if defined(OS_BSD)
+#if defined(OS_BSD) && 0
       ip_mreq mreq = {};
       int error = GetIPv4AddressFromIndex(socket_, multicast_interface_,
                                           &mreq.imr_interface.s_addr);

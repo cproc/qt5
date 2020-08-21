@@ -55,6 +55,7 @@ class DnsReloader : public NetworkChangeNotifier::DNSObserver {
   }
 
   void MaybeReload() {
+#if 0
     ReloadState* reload_state = tls_reload_state_.Get();
     base::AutoLock lock(lock_);
 
@@ -70,11 +71,16 @@ class DnsReloader : public NetworkChangeNotifier::DNSObserver {
       res_nclose(&_res);
       res_ninit(&_res);
     }
+#endif
   }
 
  private:
   struct ReloadState {
-    ~ReloadState() { res_nclose(&_res); }
+    ~ReloadState() {
+#if 0
+    res_nclose(&_res);
+#endif
+}
 
     int resolver_generation;
   };

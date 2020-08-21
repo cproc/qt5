@@ -206,6 +206,7 @@ int SocketPosix::Connect(const SockaddrStorage& address,
     return MapSystemError(errno);
   }
 
+#if !defined(OS_GENODE)
   // There is a race-condition in the above code if the kernel receive a RST
   // packet for the "connect" call before the registration of the socket file
   // descriptor to the message loop pump. On most platform it is benign as the
@@ -224,6 +225,12 @@ int SocketPosix::Connect(const SockaddrStorage& address,
     write_socket_watcher_.StopWatchingFileDescriptor();
     return rv;
   }
+#else /* OS_GENODE */
+  /*
+   * Calling 'getsockopt()' with 'SO_ERROR' option without waiting for
+   * writability of the socket first is currently not supported.
+   */
+#endif
 
   write_callback_ = std::move(callback);
   waiting_connect_ = true;

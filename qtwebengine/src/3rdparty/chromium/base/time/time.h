@@ -932,6 +932,9 @@ class BASE_EXPORT ThreadTicks : public time_internal::TimeBase<ThreadTicks> {
 
   // Returns true if ThreadTicks::Now() is supported on this system.
   static bool IsSupported() WARN_UNUSED_RESULT {
+#if defined(OS_GENODE)
+  return false;
+#else
 #if (defined(_POSIX_THREAD_CPUTIME) && (_POSIX_THREAD_CPUTIME >= 0)) || \
     (defined(OS_MACOSX) && !defined(OS_IOS)) || defined(OS_ANDROID) ||  \
     defined(OS_FUCHSIA)
@@ -941,6 +944,7 @@ class BASE_EXPORT ThreadTicks : public time_internal::TimeBase<ThreadTicks> {
 #else
     return false;
 #endif
+#endif /* OS_GENODE */
   }
 
   // Waits until the initialization is completed. Needs to be guarded with a

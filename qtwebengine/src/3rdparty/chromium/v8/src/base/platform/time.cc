@@ -732,6 +732,9 @@ bool TimeTicks::IsHighResolution() {
 
 
 bool ThreadTicks::IsSupported() {
+#if defined(OS_GENODE)
+  return false;
+#else
 #if (defined(_POSIX_THREAD_CPUTIME) && (_POSIX_THREAD_CPUTIME >= 0)) || \
     defined(V8_OS_MACOSX) || defined(V8_OS_ANDROID) || defined(V8_OS_SOLARIS)
   return true;
@@ -740,6 +743,7 @@ bool ThreadTicks::IsSupported() {
 #else
   return false;
 #endif
+#endif /* OS_GENODE */
 }
 
 

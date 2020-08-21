@@ -35,7 +35,9 @@ std::unique_ptr<Entry> MakeEntryFromManifest(
   entry->set_display_name(manifest.display_name.raw_string);
 
   base::FilePath service_exe_root;
+#if 0
   CHECK(base::PathService::Get(base::DIR_ASSETS, &service_exe_root));
+#endif
   entry->set_path(service_exe_root.AppendASCII(entry->name() +
                                                kServiceExecutableExtension));
 

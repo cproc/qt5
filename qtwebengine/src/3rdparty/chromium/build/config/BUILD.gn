@@ -265,7 +265,7 @@ config("default_libs") {
       "CoreText.framework",
       "Foundation.framework",
     ]
-  } else if (is_linux) {
+  } else if (is_linux && !is_bsd) {
     libs = [
       "pthread",
     ]

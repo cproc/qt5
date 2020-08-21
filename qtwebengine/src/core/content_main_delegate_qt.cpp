@@ -225,7 +225,9 @@ static void SafeOverridePathImpl(const char *keyName, int key, const base::FileP
 
 bool ContentMainDelegateQt::BasicStartupComplete(int *exit_code)
 {
+#if !defined(Q_OS_GENODE)
     SafeOverridePath(base::FILE_EXE, WebEngineLibraryInfo::getPath(base::FILE_EXE));
+#endif
     SafeOverridePath(base::DIR_QT_LIBRARY_DATA, WebEngineLibraryInfo::getPath(base::DIR_QT_LIBRARY_DATA));
     SafeOverridePath(ui::DIR_LOCALES, WebEngineLibraryInfo::getPath(ui::DIR_LOCALES));
 #if QT_CONFIG(webengine_spellchecker)

@@ -22,7 +22,7 @@ PRECOMPILED_HEADER =
 isEmpty(NINJA_OBJECTS): error("Missing object files from QtWebEngineCore linking pri.")
 isEmpty(NINJA_LFLAGS): error("Missing linker flags from QtWebEngineCore linking pri")
 isEmpty(NINJA_ARCHIVES): error("Missing archive files from QtWebEngineCore linking pri")
-isEmpty(NINJA_LIBS): error("Missing library files from QtWebEngineCore linking pri")
+#isEmpty(NINJA_LIBS): error("Missing library files from QtWebEngineCore linking pri")
 NINJA_OBJECTS = $$eval($$list($$NINJA_OBJECTS))
 # Do manual response file linking for macOS and Linux
 

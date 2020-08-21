@@ -44,7 +44,7 @@ ThreadIdentifier CurrentThreadSyscall() {
   return syscall(__NR_gettid);
 #elif defined(OS_ANDROID)
   return gettid();
-#elif defined(OS_BSD)
+#elif defined(OS_BSD) && 0
   return pthread_getthreadid_np();
 #else
   return reinterpret_cast<uintptr_t>(pthread_self());

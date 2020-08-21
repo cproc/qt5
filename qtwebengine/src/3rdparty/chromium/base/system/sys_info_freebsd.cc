@@ -13,6 +13,7 @@
 namespace base {
 
 int64_t SysInfo::AmountOfPhysicalMemoryImpl() {
+#if 0
   int pages, page_size, r = 0;
   size_t size = sizeof(pages);
   if(r == 0)
@@ -24,6 +25,9 @@ int64_t SysInfo::AmountOfPhysicalMemoryImpl() {
     return 0;
   }
   return static_cast<int64_t>(pages) * page_size;
+#else
+  return 256 * 1024 * 1024;
+#endif
 }
 
 int64_t SysInfo::AmountOfAvailablePhysicalMemoryImpl() {

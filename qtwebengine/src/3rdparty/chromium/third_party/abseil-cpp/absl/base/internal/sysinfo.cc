@@ -63,6 +63,7 @@ static int num_cpus = 0;
 static double nominal_cpu_frequency = 1.0;  // 0.0 might be dangerous.
 
 static int GetNumCPUs() {
+#if 0
 #if defined(__myriad2__)
   return 1;
 #else
@@ -70,6 +71,9 @@ static int GetNumCPUs() {
   //  - Read /sys/devices/system/cpu/online and use cpumask_parse()
   //  - sysconf(_SC_NPROCESSORS_ONLN)
   return std::thread::hardware_concurrency();
+#endif
+#else
+  return 1;
 #endif
 }
 

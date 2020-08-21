@@ -301,7 +301,7 @@ target(link_target_type, "ffmpeg_internal") {
     ]
     cflags += [
       "-std=c99",
-      "-pthread",
+      #"-pthread",
       "-fno-math-errno",
       "-fno-signed-zeros",
       "-fno-tree-vectorize",

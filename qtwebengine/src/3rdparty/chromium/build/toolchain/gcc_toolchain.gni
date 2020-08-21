@@ -48,6 +48,7 @@ analyzer_wrapper =
                 root_build_dir) + " --mode=clang"
 
 declare_args() {
+  extra_cflags = ""
   extra_cxxflags = ""
   extra_ldflags = ""
 }

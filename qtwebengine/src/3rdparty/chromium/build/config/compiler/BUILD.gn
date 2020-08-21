@@ -487,7 +487,7 @@ config("compiler") {
   }
 
   if (is_linux) {
-    cflags += [ "-pthread" ]
+    #cflags += [ "-pthread" ]
     # Do not use the -pthread ldflag here since it becomes a no-op
     # when using -nodefaultlibs, which would cause an unused argument
     # error.  "-lpthread" is added in //build/config:default_libs.
@@ -1708,7 +1708,7 @@ config("no_rtti") {
 # to heap-allocated memory are passed over shared library boundaries.
 config("export_dynamic") {
   if (is_desktop_linux || export_libcxxabi_from_executables) {
-    ldflags = [ "-rdynamic" ]
+    #ldflags = [ "-rdynamic" ]
   }
 }
 

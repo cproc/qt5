@@ -11,6 +11,19 @@
 #include <malloc.h>
 #endif
 
+#if defined(OS_GENODE)
+/* XXX: alignment not implemented yet, result address must be compatible with 'free()' */
+extern "C" int posix_memalign(void **memptr, size_t alignment, size_t size)
+{
+  *memptr = malloc(size);
+
+  if ((reinterpret_cast<uintptr_t>(*memptr) & (alignment - 1)) != 0U)
+    fprintf(stderr, "Warning: qtwebengine posix_memalign(): could not fulfill alignment request of %zu bytes\n", alignment);
+
+  return 0;
+}
+#endif
+
 namespace base {
 
 void* AlignedAlloc(size_t size, size_t alignment) {
@@ -41,8 +54,10 @@ void* AlignedAlloc(size_t size, size_t alignment) {
                 << "size=" << size << ", alignment=" << alignment;
     CHECK(false);
   }
+#if !defined(OS_GENODE)
   // Sanity check alignment just to be safe.
   DCHECK_EQ(reinterpret_cast<uintptr_t>(ptr) & (alignment - 1), 0U);
+#endif
   return ptr;
 }
 
