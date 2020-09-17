@@ -280,8 +280,8 @@ isEmpty($${target_prefix}.INCDIRS) {
             }
         }
         isEmpty(QMAKE_DEFAULT_LIBDIRS)|isEmpty(QMAKE_DEFAULT_INCDIRS): \
-            !integrity: \
-                error("failed to parse default search paths from compiler output")
+#            !integrity: \
+#                error("failed to parse default search paths from compiler output")
         QMAKE_DEFAULT_LIBDIRS = $$unique(QMAKE_DEFAULT_LIBDIRS)
     } else: ghs {
         cmd = $$QMAKE_CXX $$QMAKE_CXXFLAGS -$${LITERAL_HASH} -o /tmp/fake_output /tmp/fake_input.cpp

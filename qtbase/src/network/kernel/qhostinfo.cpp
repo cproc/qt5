@@ -760,7 +760,12 @@ QHostInfoLookupManager::QHostInfoLookupManager() : mutex(QMutex::Recursive), was
     moveToThread(QCoreApplicationPrivate::mainThread());
 #if QT_CONFIG(thread)
     connect(QCoreApplication::instance(), SIGNAL(destroyed()), SLOT(waitForThreadPoolDone()), Qt::DirectConnection);
+#ifdef Q_OS_GENODE
+    /* 'getaddrinfo()' is currently not thread-safe on Genode */
+    threadPool.setMaxThreadCount(1);
+#else
     threadPool.setMaxThreadCount(20); // do up to 20 DNS lookups in parallel
+#endif /* Q_OS_GENODE */
 #endif
 }
 

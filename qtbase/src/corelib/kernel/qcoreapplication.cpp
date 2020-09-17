@@ -613,7 +613,7 @@ void QCoreApplicationPrivate::initLocale()
     if (qt_locale_initialized)
         return;
     qt_locale_initialized = true;
-#if defined(Q_OS_UNIX) && !defined(QT_BOOTSTRAPPED)
+#if defined(Q_OS_UNIX) && !defined(QT_BOOTSTRAPPED) && !defined(Q_OS_GENODE)
     setlocale(LC_ALL, "");
 #endif
 }

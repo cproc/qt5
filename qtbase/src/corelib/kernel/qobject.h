@@ -415,7 +415,7 @@ public:
         { return const_cast<QObject *>(this)->qt_metacast(classname) != nullptr; }
 
 public Q_SLOTS:
-    void deleteLater();
+    virtual void deleteLater();
 
 protected:
     QObject *sender() const;

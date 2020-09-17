@@ -221,7 +221,10 @@ bool QSslSocketPrivate::ensureLibraryLoaded()
         if (q_SSL_library_init() != 1)
             return false;
         q_SSL_load_error_strings();
+#ifndef Q_OS_GENODE
+        /* FIXME: currently, on Genode this function causes 'exit(1)' */
         q_OpenSSL_add_all_algorithms_safe();
+#endif
 
 #if OPENSSL_VERSION_NUMBER >= 0x10001000L
         if (q_SSLeay() >= 0x10001000L)

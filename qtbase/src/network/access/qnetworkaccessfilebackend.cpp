@@ -127,6 +127,7 @@ void QNetworkAccessFileBackend::open()
         url.setPath(QLatin1String("/"));
     setUrl(url);
 
+#ifndef Q_OS_GENODE
     QString fileName = url.toLocalFile();
     if (fileName.isEmpty()) {
         if (url.scheme() == QLatin1String("qrc")) {
@@ -140,6 +141,10 @@ void QNetworkAccessFileBackend::open()
                 fileName = url.toString(QUrl::RemoveAuthority | QUrl::RemoveFragment | QUrl::RemoveQuery);
         }
     }
+#else
+    QString fileName = QLatin1String(":") + url.path();
+#endif
+
     file.setFileName(fileName);
 
     if (operation() == QNetworkAccessManager::GetOperation) {

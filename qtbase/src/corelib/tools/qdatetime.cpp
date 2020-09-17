@@ -2197,6 +2197,9 @@ static int qt_timezone()
         long offset;
         _get_timezone(&offset);
         return offset;
+#elif defined(Q_OS_GENODE)
+		/* no timezone support on Genode */
+		return 0;
 #elif defined(Q_OS_BSD4) && !defined(Q_OS_DARWIN)
         time_t clock = time(NULL);
         struct tm t;

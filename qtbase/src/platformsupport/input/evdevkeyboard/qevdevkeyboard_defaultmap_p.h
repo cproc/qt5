@@ -55,7 +55,9 @@
 #ifdef Q_OS_FREEBSD
 #include <dev/evdev/input.h>
 #else
+#ifndef Q_OS_GENODE
 #include "linux/input.h"
+#endif /* Q_OS_GENODE */
 #endif
 
 // no QT_BEGIN_NAMESPACE, since we include it internally...
@@ -648,6 +650,7 @@ const QEvdevKeyboardMap::Mapping QEvdevKeyboardHandler::s_keymap_default[] = {
     { 111, 0xffff, 0x01000000, 0x06, 0x08, 0x0200 },
     { 111, 0xffff, 0x01000000, 0x0c, 0x08, 0x0200 },
 
+#ifndef Q_OS_GENODE
     // 113 -> 248
     { KEY_MUTE,         0xffff, Qt::Key_VolumeMute,     0x00, 0x00, 0x0000 },
     { KEY_VOLUMEDOWN,   0xffff, Qt::Key_VolumeDown,     0x00, 0x00, 0x0000 },
@@ -676,6 +679,7 @@ const QEvdevKeyboardMap::Mapping QEvdevKeyboardHandler::s_keymap_default[] = {
     { KEY_BLUE,         0xffff, Qt::Key_Blue,           0x00, 0x00, 0x0000 },
     { KEY_CHANNELUP,    0xffff, Qt::Key_ChannelUp,      0x00, 0x00, 0x0000 },
     { KEY_CHANNELDOWN,  0xffff, Qt::Key_ChannelDown,    0x00, 0x00, 0x0000 },
+#endif /* Q_OS_GENODE */
 };
 
 const QEvdevKeyboardMap::Composing QEvdevKeyboardHandler::s_keycompose_default[] = {

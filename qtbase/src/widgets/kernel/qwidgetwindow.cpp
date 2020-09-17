@@ -150,6 +150,16 @@ QWidgetWindow::QWidgetWindow(QWidget *widget)
     : QWindow(*new QWidgetWindowPrivate(), 0)
     , m_widget(widget)
 {
+#ifdef Q_OS_GENODE
+    /*
+     * Forward window title to nitpicker.
+     *    
+     * This enables Qt5 applications to set a Genode label via 'setWindowTitle'
+     * from within Qt5 applications, and thus, making them identifiable to
+     * other Genode components, like a layout manager.
+     */
+    setTitle(widget->windowTitle());
+#endif /* Q_OS_GENODE */
     updateObjectName();
     // Enable QOpenGLWidget/QQuickWidget children if the platform plugin supports it,
     // and the application developer has not explicitly disabled it.

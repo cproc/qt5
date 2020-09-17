@@ -279,6 +279,23 @@
 /* Instruction cache flush. */
 /****************************/
 
+#if defined(__GENODE__)
+
+#if (defined SLJIT_CONFIG_X86 && SLJIT_CONFIG_X86)
+
+/* Not required to implement on archs with unified caches. */
+#define SLJIT_CACHE_FLUSH(from, to)
+
+#else
+
+#include <libc/genode.h>
+
+#define SLJIT_CACHE_FLUSH(from, to) \
+	genode_cache_coherent((void*)from, (size_t)((char*)(to) - (char*)(from)))
+
+#endif
+#endif /* __GENODE__ */
+
 #if (!defined SLJIT_CACHE_FLUSH && defined __has_builtin)
 #if __has_builtin(__builtin___clear_cache)
 

@@ -85,7 +85,16 @@ public:
     QSslConfigurationPrivate()
         : sessionProtocol(QSsl::UnknownProtocol),
           protocol(QSsl::SecureProtocols),
+#ifdef Q_OS_GENODE
+          /*
+           * With enabled peer verification, currently often a 'handshake error'
+           * occurs. This patch disables the peer verification until a fix for
+           * the handshake problem has been found.
+           */
+          peerVerifyMode(QSslSocket::VerifyNone),
+#else
           peerVerifyMode(QSslSocket::AutoVerifyPeer),
+#endif
           peerVerifyDepth(0),
           allowRootCertOnDemandLoading(true),
           peerSessionShared(false),

@@ -180,7 +180,7 @@ bool QLibraryPrivate::load_sys()
         prefixes.append(QString());
     }
 
-#if defined(Q_PROCESSOR_X86) && !defined(Q_OS_DARWIN)
+#if defined(Q_PROCESSOR_X86) && !defined(Q_OS_DARWIN) && !defined(Q_OS_GENODE)
     if (qCpuHasFeature(ArchHaswell)) {
         auto transform = [](QStringList &list, void (*f)(QString *)) {
             QStringList tmp;

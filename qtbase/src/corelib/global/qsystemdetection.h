@@ -47,6 +47,7 @@
 /*
    The operating system, must be one of: (Q_OS_x)
 
+     GENODE   - Genode
      DARWIN   - Any Darwin system (macOS, iOS, watchOS, tvOS)
      MACOS    - macOS
      IOS      - iOS
@@ -79,7 +80,9 @@
               - Q_OS_FREEBSD_KERNEL is always defined on FreeBSD, even if the userland is from GNU
 */
 
-#if defined(__APPLE__) && (defined(__GNUC__) || defined(__xlC__) || defined(__xlc__))
+#if defined(__GENODE__)
+#  define Q_OS_GENODE
+#elif defined(__APPLE__) && (defined(__GNUC__) || defined(__xlC__) || defined(__xlc__))
 #  include <TargetConditionals.h>
 #  if defined(TARGET_OS_MAC) && TARGET_OS_MAC
 #    define Q_OS_DARWIN

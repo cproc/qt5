@@ -249,8 +249,16 @@ void QHttpNetworkReply::setReadBufferSize(qint64 size)
 
 bool QHttpNetworkReply::supportsUserProvidedDownloadBuffer()
 {
+#ifdef Q_OS_GENODE
+	/*
+	 * Without this change Arora shows garbage when loading, for example,
+	 * www.genode.org
+	 */
+	return false;
+#else
     Q_D(QHttpNetworkReply);
     return (!d->isChunked() && !d->autoDecompress && d->bodyLength > 0 && d->statusCode == 200);
+#endif
 }
 
 void QHttpNetworkReply::setUserProvidedDownloadBuffer(char* b)

@@ -845,7 +845,15 @@ static bool read_xpm_header(
 #ifdef Q_CC_MSVC
         if (sscanf_s(buf, "%d %d %d %d", w, h, ncols, cpp) < 4)
 #else
+#ifdef Q_OS_GENODE
+    *w = QString(buf).section(" ", 0, 0, QString::SectionSkipEmpty).toInt();
+    *h = QString(buf).section(" ", 1, 1, QString::SectionSkipEmpty).toInt();
+    *ncols = QString(buf).section(" ", 2, 2, QString::SectionSkipEmpty).toInt();
+    *cpp = QString(buf).section(" ", 3, 3, QString::SectionSkipEmpty).toInt();
+    if (*w <= 0 || *h <= 0 || *ncols <= 0 || *cpp <= 0)
+#else
     if (sscanf(buf, "%d %d %d %d", w, h, ncols, cpp) < 4)
+#endif
 #endif
         return false;                                        // < 4 numbers parsed
 
