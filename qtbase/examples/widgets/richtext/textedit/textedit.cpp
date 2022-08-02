@@ -490,7 +490,9 @@ void TextEdit::fileOpen()
 
                                   << "text/markdown"
 #endif
-                                  << "text/plain");
+                                  << "text/plain"
+                                  << "application/octet-stream");
+    fileDialog.selectMimeTypeFilter("application/octet-stream");
     if (fileDialog.exec() != QDialog::Accepted)
         return;
     const QString fn = fileDialog.selectedFiles().first();
@@ -507,7 +509,12 @@ bool TextEdit::fileSave()
     if (fileName.startsWith(QStringLiteral(":/")))
         return fileSaveAs();
 
-    QTextDocumentWriter writer(fileName);
+    /* if the file name has no extension, assume plain text */
+    QByteArray format = QByteArray();
+    if (fileName.indexOf(".", 1) == -1)
+        format = "plaintext";
+
+    QTextDocumentWriter writer(fileName, format);
     bool success = writer.write(textEdit->document());
     if (success) {
         textEdit->document()->setModified(false);
@@ -531,10 +538,12 @@ bool TextEdit::fileSaveAs()
 #if QT_CONFIG(textmarkdownwriter)
               << "text/markdown"
 #endif
-              << "text/html";
+              << "text/html"
+              << "application/octet-stream";
     fileDialog.setMimeTypeFilters(mimeTypes);
+    fileDialog.selectMimeTypeFilter("application/octet-stream");
 #if QT_CONFIG(textodfwriter)
-    fileDialog.setDefaultSuffix("odt");
+    //fileDialog.setDefaultSuffix("odt");
 #endif
     if (fileDialog.exec() != QDialog::Accepted)
         return false;
