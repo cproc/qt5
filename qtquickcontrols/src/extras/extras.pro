@@ -28,7 +28,7 @@ SOURCES += plugin.cpp \
 include(Private/private.pri)
 include(designer/designer.pri)
 
-!static: CONFIG += qmlcache
+#!static: CONFIG += qmlcache
 
 OTHER_FILES += doc/src/*
 
