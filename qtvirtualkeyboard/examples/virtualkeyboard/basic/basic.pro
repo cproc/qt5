@@ -27,7 +27,7 @@ disable-xcb {
     CONFIG += disable-desktop
 }
 
-disable-desktop|android-embedded|!isEmpty(CROSS_COMPILE)|qnx {
+disable-desktop|android-embedded|!isEmpty(CROSS_COMPILE)|qnx|genode {
     DEFINES += MAIN_QML=\\\"basic-b2qt.qml\\\"
 } else {
     DEFINES += MAIN_QML=\\\"Basic.qml\\\"
