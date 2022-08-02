@@ -7,8 +7,6 @@ SUBDIRS = \
 qtConfig(process) {
     SUBDIRS += \
         lib \
-        components \
-        designer
 
     lib.depends = uiplugin
     components.depends = lib
