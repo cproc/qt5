@@ -2003,6 +2003,9 @@ jumbo_static_library("browser") {
     # resources on other platforms.
     deps += [ "//content/browser/devtools:devtools_resources" ]
   }
+  if (is_bsd) {
+    deps -= [ "//services/service_manager/zygote" ]
+  }
 
   if (enable_basic_printing) {
     deps += [ "//printing" ]

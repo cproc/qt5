@@ -47,7 +47,7 @@ group("telemetry_chrome_test") {
     data_deps += [ "//chrome:reorder_imports" ]
   }
 
-  if (is_linux) {
+  if (is_linux && !is_bsd) {
     data_deps += [
       "//third_party/breakpad:dump_syms($host_toolchain)",
       "//third_party/crashpad/crashpad/tools:crashpad_database_util",

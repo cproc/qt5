@@ -35,7 +35,6 @@ inline Sk4px Sk4px::Wide::div255() const {
 }
 
 inline Sk4px Sk4px::alphas() const {
-    static_assert(SK_A32_SHIFT == 24, "This method assumes little-endian.");
     return Sk16b((*this)[ 3], (*this)[ 3], (*this)[ 3], (*this)[ 3],
                  (*this)[ 7], (*this)[ 7], (*this)[ 7], (*this)[ 7],
                  (*this)[11], (*this)[11], (*this)[11], (*this)[11],

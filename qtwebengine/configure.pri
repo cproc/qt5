@@ -123,6 +123,9 @@ defineTest(qtConfTest_detectPlatform) {
     macos:qtwebengine_isMacOsPlatformSupported() {
         $${1}.platform = "macos"
     }
+    unix:qtwebengine_isLinuxPlatformSupported() {
+        $${1}.platform = "linux"
+    }
     ios:qtwebengine_isMacOsPlatformSupported() {
         $${1}.platform = "ios"
     }

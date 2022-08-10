@@ -29,6 +29,11 @@ source_set("support") {
       "//sandbox/linux:seccomp_bpf",
     ]
   }
+  if (is_bsd) {
+    deps -= [
+      "//sandbox/linux:seccomp_bpf"
+    ]
+  }
 }
 
 source_set("switches") {

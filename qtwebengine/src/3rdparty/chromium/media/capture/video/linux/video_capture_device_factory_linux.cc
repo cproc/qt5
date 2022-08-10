@@ -315,6 +315,7 @@ void VideoCaptureDeviceFactoryLinux::GetSupportedFormatsForV4L2BufferType(
     supported_format.pixel_format =
         VideoCaptureDeviceLinux::V4l2FourCcToChromiumPixelFormat(
             v4l2_format.pixelformat);
+    supported_format.pixel_format = PIXEL_FORMAT_UNKNOWN;
 
     if (supported_format.pixel_format == PIXEL_FORMAT_UNKNOWN)
       continue;

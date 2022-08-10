@@ -81,7 +81,7 @@ void EnsureBrowserContextKeyedServiceFactoriesBuilt() {
   IdleManagerFactory::GetInstance();
 #endif // !defined(TOOLKIT_QT)
   ManagementAPI::GetFactoryInstance();
-#if defined(OS_LINUX) || defined(OS_WIN) || defined(OS_MACOSX)
+#if defined(OS_LINUX) || defined(OS_WIN) || defined(OS_MACOSX) || defined(OS_BSD)
   NetworkingPrivateEventRouterFactory::GetInstance();
 #endif
   PowerAPI::GetFactoryInstance();

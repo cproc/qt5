@@ -16,9 +16,8 @@ constexpr char kFolderSeparator = '/';
 
 constexpr const char* kFontFolders[] = {
 #if _FX_PLATFORM_ == _FX_PLATFORM_LINUX_
-    "/usr/share/fonts",
-    "/usr/share/X11/fonts/Type1",
-    "/usr/share/X11/fonts/TTF",
+    "%%LOCALBASE%%/share/fonts/Type1",
+    "%%LOCALBASE%%/share/fonts/TTF",
     "/usr/local/share/fonts",
 #elif defined(OS_MACOSX)
     "~/Library/Fonts",

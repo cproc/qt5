@@ -16,6 +16,7 @@
 #include "build/build_config.h"
 #include "testing/gmock/include/gmock/gmock.h"
 #include "testing/gtest/include/gtest/gtest.h"
+#include "base/sys_byteorder.h"
 
 namespace base {
 
@@ -73,8 +74,8 @@ TEST_F(SharedMemoryMappingTest, SpanWithAutoDeducedElementCount) {
 
   for (size_t i = 0; i < write_span.size(); ++i)
     write_span[i] = i + 1;
-  EXPECT_EQ(0x04030201u, read_span[0]);
-  EXPECT_EQ(0x08070605u, read_span[1]);
+  EXPECT_EQ(HostToNet32(0x01020304u), read_span[0]);
+  EXPECT_EQ(HostToNet32(0x05060708u), read_span[1]);
 }
 
 TEST_F(SharedMemoryMappingTest, SpanWithExplicitElementCount) {
@@ -99,13 +100,13 @@ TEST_F(SharedMemoryMappingTest, SpanWithExplicitElementCount) {
 
   for (size_t i = 0; i < write_span.size(); ++i)
     write_span[i] = i + 1;
-  EXPECT_EQ(0x04030201u, read_span[0]);
-  EXPECT_EQ(0x08070605u, read_span[1]);
-  EXPECT_EQ(0x04030201u, read_span_2[0]);
+  EXPECT_EQ(HostToNet32(0x01020304u), read_span[0]);
+  EXPECT_EQ(HostToNet32(0x05060708u), read_span[1]);
+  EXPECT_EQ(HostToNet32(0x01020304u), read_span_2[0]);
 
   std::fill(write_span_2.begin(), write_span_2.end(), 0);
   EXPECT_EQ(0u, read_span[0]);
-  EXPECT_EQ(0x08070605u, read_span[1]);
+  EXPECT_EQ(HostToNet32(0x05060708u), read_span[1]);
   EXPECT_EQ(0u, read_span_2[0]);
 }
 
