@@ -16,7 +16,9 @@
 #else
 #include <pthread_np.h>
 #endif
+#if 0
 #include <sys/syscall.h>
+#endif
 #endif
 
 namespace rtc {

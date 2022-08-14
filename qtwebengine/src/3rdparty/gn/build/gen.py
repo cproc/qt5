@@ -379,7 +379,7 @@ def WriteGNNinja(path, platform, host, options):
     elif platform.is_freebsd():
       cflags.extend(['-Wno-deprecated-register', '-Wno-parentheses-equality'])
       ldflags.extend(['-pthread'])
-      libs.extend(['-lexecinfo', '-lkvm', '-lutil'])
+      #libs.extend(['-lexecinfo', '-lkvm', '-lutil'])
       include_dirs += ['%%LOCALBASE%%/include']
 
     if platform.is_posix():

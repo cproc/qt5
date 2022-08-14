@@ -87,6 +87,11 @@
 # include <sys/types.h>
 #endif
 
+#if __FreeBSD__
+#undef HAVE_ENDIAN_H
+#define HAVE_SYS_ENDIAN_H
+#endif
+
 #ifdef HAVE_ENDIAN_H
 # include <endian.h>
 #elif defined(HAVE_SYS_ENDIAN_H)

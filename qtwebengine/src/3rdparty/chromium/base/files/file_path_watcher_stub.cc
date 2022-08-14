@@ -6,7 +6,10 @@
 #include <memory>
 
 #include "base/files/file_path_watcher.h"
+#if 0
 #include "base/files/file_path_watcher_kqueue.h"
+#endif
+
 #include "base/macros.h"
 #include "base/memory/ptr_util.h"
 #include "build/build_config.h"
@@ -23,7 +26,7 @@ class FilePathWatcherImpl : public FilePathWatcher::PlatformDelegate {
   bool Watch(const FilePath& path,
              bool recursive,
              const FilePathWatcher::Callback& callback) override {
-#if defined(OS_BSD)
+#if defined(OS_BSD) && 0
     DCHECK(!impl_.get());
     if (recursive) {
       return false;
@@ -38,13 +41,17 @@ class FilePathWatcherImpl : public FilePathWatcher::PlatformDelegate {
   }
 
   void Cancel() override {
+#if 0
     if (impl_.get())
       impl_->Cancel();
     set_cancelled();
+#endif
   }
 
  private:
+#if 0
   std::unique_ptr<PlatformDelegate> impl_;
+#endif
 
   DISALLOW_COPY_AND_ASSIGN(FilePathWatcherImpl);
 };

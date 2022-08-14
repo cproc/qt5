@@ -14,7 +14,9 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <sys/resource.h>
+#if 0
 #include <sys/syscall.h>
+#endif
 #include <sys/time.h>
 #include <sys/types.h>
 #include <sys/wait.h>

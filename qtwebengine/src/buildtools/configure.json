@@ -362,7 +362,7 @@
     "features": {
         "webengine-core-support": {
             "label": "Support Qt WebEngine Core",
-            "condition": "(config.unix || config.win32 || config.macos)
+            "condition": "true || (config.unix || config.win32 || config.macos)
                          && !config.static
                          && module.gui
                          && features.webengine-submodule

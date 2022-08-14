@@ -15,7 +15,9 @@
 #include "base/logging.h"
 #include "base/macros.h"
 #include "base/posix/eintr_wrapper.h"
+#if 0
 #include "base/process/process_iterator.h"
+#endif
 #include "base/task/post_task.h"
 #include "base/threading/platform_thread.h"
 #include "build/build_config.h"
@@ -105,7 +107,7 @@ bool WaitForProcessesToExit(const FilePath::StringType& executable_name,
                             TimeDelta wait,
                             const ProcessFilter* filter) {
   bool result = false;
-
+#if 0
   // TODO(port): This is inefficient, but works if there are multiple procs.
   // TODO(port): use waitpid to avoid leaving zombies around
 
@@ -118,7 +120,7 @@ bool WaitForProcessesToExit(const FilePath::StringType& executable_name,
     }
     PlatformThread::Sleep(TimeDelta::FromMilliseconds(100));
   } while ((end_time - TimeTicks::Now()) > TimeDelta());
-
+#endif
   return result;
 }
 
@@ -127,8 +129,10 @@ bool CleanupProcesses(const FilePath::StringType& executable_name,
                       int exit_code,
                       const ProcessFilter* filter) {
   bool exited_cleanly = WaitForProcessesToExit(executable_name, wait, filter);
+#if 0
   if (!exited_cleanly)
     KillProcesses(executable_name, exit_code, filter);
+#endif
   return exited_cleanly;
 }
 

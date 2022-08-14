@@ -8,7 +8,9 @@
 #include <sys/param.h>
 #include <sys/socket.h>
 #include <sys/types.h>
+#if defined(OS_BSD)
 #include <sys/ucred.h>
+#endif
 #if !defined(OS_NACL_NONSFI)
 #include <sys/un.h>
 #endif
@@ -161,7 +163,11 @@ ssize_t UnixDomainSocket::RecvMsgWithFlags(int fd,
 #if !defined(OS_NACL_NONSFI) && !defined(OS_MACOSX)
       // The PNaCl toolchain for Non-SFI binary build and macOS do not support
       // ucred. macOS supports xucred, but this structure is insufficient.
+#if defined(OS_BSD)
       + CMSG_SPACE(sizeof(struct cmsgcred))
+#else
+      + CMSG_SPACE(sizeof(struct ucred))
+#endif
 #endif  // OS_NACL_NONSFI or OS_MACOSX
       ;
   char control_buffer[kControlBufferSize];
@@ -191,7 +197,11 @@ ssize_t UnixDomainSocket::RecvMsgWithFlags(int fd,
       // SCM_CREDENTIALS.
       if (cmsg->cmsg_level == SOL_SOCKET &&
           cmsg->cmsg_type == SCM_CREDENTIALS) {
+#if defined(OS_BSD)
         DCHECK_EQ(payload_len, sizeof(struct cmsgcred));
+#else
+        DCHECK_EQ(payload_len, sizeof(struct ucred));
+#endif
         DCHECK_EQ(pid, -1);
 	pid = getpid();
       }

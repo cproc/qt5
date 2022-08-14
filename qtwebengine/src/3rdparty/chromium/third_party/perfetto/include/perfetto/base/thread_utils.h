@@ -29,7 +29,9 @@
 #include <zircon/types.h>
 #else
 #include <pthread.h>
+#if 0
 #include <sys/syscall.h>
+#endif
 #include <sys/types.h>
 #include <unistd.h>
 #endif

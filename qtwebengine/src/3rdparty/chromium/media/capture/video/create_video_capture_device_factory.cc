@@ -34,6 +34,7 @@ namespace {
 // Returns null if the corresponding switch is off.
 std::unique_ptr<VideoCaptureDeviceFactory>
 CreateFakeVideoCaptureDeviceFactory() {
+#if 0
   const base::CommandLine* command_line =
       base::CommandLine::ForCurrentProcess();
   // Use a Fake or File Video Device Factory if the command line flags are
@@ -47,13 +48,18 @@ CreateFakeVideoCaptureDeviceFactory() {
           command_line->GetSwitchValueASCII(
               switches::kUseFakeDeviceForMediaStream),
           &config);
+#endif
       auto result = std::make_unique<FakeVideoCaptureDeviceFactory>();
+#if 0
       result->SetToCustomDevicesConfig(config);
+#endif
       return std::move(result);
+#if 0
     }
   } else {
     return nullptr;
   }
+#endif
 }
 
 #if defined(OS_CHROMEOS)
@@ -82,7 +88,7 @@ CreateChromeOSVideoCaptureDeviceFactory(
 std::unique_ptr<VideoCaptureDeviceFactory>
 CreatePlatformSpecificVideoCaptureDeviceFactory(
     scoped_refptr<base::SingleThreadTaskRunner> ui_task_runner) {
-#if (defined(OS_LINUX) && !defined(OS_CHROMEOS)) || defined(OS_BSD)
+#if (defined(OS_LINUX) && !defined(OS_CHROMEOS)) || defined(OS_BSD) && 0
   return std::make_unique<VideoCaptureDeviceFactoryLinux>(ui_task_runner);
 #elif defined(OS_CHROMEOS)
   return CreateChromeOSVideoCaptureDeviceFactory(ui_task_runner, {});

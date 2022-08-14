@@ -26,7 +26,9 @@
 
 #include <stdio.h>
 #include <string.h>
+#if 0
 #include <sys/syscall.h>
+#endif
 #include <sys/utsname.h>
 #include <unistd.h>
 

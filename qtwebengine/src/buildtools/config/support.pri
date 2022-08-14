@@ -164,29 +164,29 @@ defineTest(qtwebengine_checkForSanitizer) {
 }
 
 defineTest(qtwebengine_checkForPkgCfg) {
-    module = $$1
-    !qtConfig(pkg-config) {
-        qtwebengine_skipBuild("A pkg-config support is required to build $${module}.")
-        return(false)
-    }
+#    module = $$1
+#    !qtConfig(pkg-config) {
+#        qtwebengine_skipBuild("A pkg-config support is required to build $${module}.")
+#        return(false)
+#    }
     return(true)
 }
 
 defineTest(qtwebengine_checkForHostPkgCfg) {
-    module = $$1
-    !qtConfig(webengine-host-pkg-config) {
-        qtwebengine_skipBuild("Host pkg-config is required to build $${module}.")
-        return(false)
-    }
+#    module = $$1
+#    !qtConfig(webengine-host-pkg-config) {
+#        qtwebengine_skipBuild("Host pkg-config is required to build $${module}.")
+#        return(false)
+#    }
     return(true)
 }
 
 defineTest(qtwebengine_checkForGlibc) {
-    module = $$1
-    !qtConfig(webengine-system-glibc) {
-        qtwebengine_skipBuild("A suitable version >= 2.27 of libc required to build $${module} could not be found.")
-        return(false)
-    }
+#    module = $$1
+#    !qtConfig(webengine-system-glibc) {
+#        qtwebengine_skipBuild("A suitable version >= 2.27 of libc required to build $${module} could not be found.")
+#        return(false)
+#    }
     return(true)
 }
 
@@ -200,21 +200,21 @@ defineTest(qtwebengine_checkForKhronos) {
 }
 
 defineTest(qtwebengine_checkForPackage) {
-    module = $$1
-    package = $$2
-    !qtConfig(webengine-system-$$package) {
-        qtwebengine_skipBuild("A suitable version of $$package required to build QtWebEngine could not be found.")
-        return(false)
-    }
+#    module = $$1
+#    package = $$2
+#    !qtConfig(webengine-system-$$package) {
+#        qtwebengine_skipBuild("A suitable version of $$package required to build QtWebEngine could not be found.")
+#        return(false)
+#    }
     return(true)
 }
 
 defineTest(qtwebengine_checkForQpaXcb) {
-    module = $$1
-    qtConfig(pkg-config):qtConfig(xcb):!qtConfig(webengine-ozone-x11) {
-        qtwebengine_skipBuild("Could not find all necessary libraries for qpa-xcb support in $${module}.")
-        return(false)
-    }
+#    module = $$1
+#    qtConfig(pkg-config):qtConfig(xcb):!qtConfig(webengine-ozone-x11) {
+#        qtwebengine_skipBuild("Could not find all necessary libraries for qpa-xcb support in $${module}.")
+#        return(false)
+#    }
     return(true)
 }
 

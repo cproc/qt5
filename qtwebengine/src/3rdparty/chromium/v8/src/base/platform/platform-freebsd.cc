@@ -14,7 +14,9 @@
 #include <sys/time.h>
 #include <sys/types.h>
 #include <sys/ucontext.h>
+#if 0
 #include <sys/user.h>
+#endif
 
 #include <sys/fcntl.h>  // open
 #include <sys/mman.h>   // mmap & munmap
@@ -49,6 +51,7 @@ static unsigned StringToLong(char* buffer) {
 
 std::vector<OS::SharedLibraryAddress> OS::GetSharedLibraryAddresses() {
   std::vector<SharedLibraryAddress> result;
+#if 0
   int mib[4] = {CTL_KERN, KERN_PROC, KERN_PROC_VMMAP, getpid()};
   size_t miblen = sizeof(mib) / sizeof(mib[0]);
   size_t buffer_size;
@@ -90,6 +93,7 @@ std::vector<OS::SharedLibraryAddress> OS::GetSharedLibraryAddresses() {
       }
     }
   }
+#endif
   return result;
 }
 

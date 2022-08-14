@@ -8,7 +8,7 @@
 
 #include "build/build_config.h"
 
-#if defined(OS_LINUX)
+#if defined(OS_LINUX) || defined(OS_BSD)
 #if !defined(TOOLKIT_QT)
 #include <drm_fourcc.h>
 #endif

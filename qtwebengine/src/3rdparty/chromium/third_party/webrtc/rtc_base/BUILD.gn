@@ -934,8 +934,8 @@ rtc_library("rtc_base") {
 
   if (is_linux) {
     libs += [
-      "dl",
-      "rt",
+#      "dl",
+#      "rt",
     ]
   }
 
