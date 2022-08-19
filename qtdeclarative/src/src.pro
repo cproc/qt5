@@ -9,7 +9,6 @@ requires(qtConfig(commandlineparser))
 
 # We need qmltyperegistrar for all type registrations, even in qml
 SUBDIRS += \
-    qmltyperegistrar \
     qml \
     qmlmodels
 
