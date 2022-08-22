@@ -68,7 +68,9 @@ void LockImpl::Unlock() {
 }
 #elif defined(OS_POSIX) || defined(OS_FUCHSIA)
 #pragma GCC diagnostic push
+#if 0
 #pragma GCC diagnostic ignored "-Wthread-safety-analysis"
+#endif
 void LockImpl::Unlock() {
   int rv = pthread_mutex_unlock(&native_handle_);
   DCHECK_EQ(rv, 0) << ". " << strerror(rv);

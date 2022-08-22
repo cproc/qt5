@@ -179,7 +179,9 @@ class multi_threaded_local {
 
 #ifdef _SIGSLOT_HAS_POSIX_THREADS
 #pragma GCC diagnostic push
+#if 0
 #pragma GCC diagnostic ignored "-Wthread-safety-analysis"
+#endif
 // The multi threading policies only get compiled in if they are enabled.
 class multi_threaded_global {
  public:
