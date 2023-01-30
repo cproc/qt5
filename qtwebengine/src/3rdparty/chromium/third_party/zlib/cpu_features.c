@@ -117,6 +117,9 @@ static void _cpu_check_features(void)
 #elif defined(ARMV8_OS_WINDOWS)
     arm_cpu_enable_crc32 = IsProcessorFeaturePresent(PF_ARM_V8_CRC32_INSTRUCTIONS_AVAILABLE);
     arm_cpu_enable_pmull = IsProcessorFeaturePresent(PF_ARM_V8_CRYPTO_INSTRUCTIONS_AVAILABLE);
+#elif defined(__GENODE__)
+    arm_cpu_enable_pmull = 1;
+    arm_cpu_enable_crc32 = 1;
 #elif defined(ARMV8_OS_FREEBSD)
     uint64_t id_aa64isar0;
     id_aa64isar0 = READ_SPECIALREG(id_aa64isar0_el1);

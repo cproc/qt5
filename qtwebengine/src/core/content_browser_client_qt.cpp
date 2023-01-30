@@ -267,6 +267,8 @@ public:
                 m_handle = pni->nativeResourceForContext(QByteArrayLiteral("eglContext"), qtContext);
             else
                 m_handle = pni->nativeResourceForContext(QByteArrayLiteral("renderingcontext"), qtContext);
+        } else if (platform == QLatin1String("genode")) {
+            m_handle = pni->nativeResourceForContext(QByteArrayLiteral("eglcontext"), qtContext);
         } else {
             qFatal("%s platform not yet supported", platform.toLatin1().constData());
             // Add missing platforms once they work.

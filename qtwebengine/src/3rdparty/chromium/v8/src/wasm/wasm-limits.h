@@ -34,7 +34,11 @@ constexpr size_t kV8MaxWasmDataSegments = 100000;
 // This indicates the maximum memory size our implementation supports.
 // Don't use this limit directly; use {max_initial_mem_pages()} instead
 // to take the spec'ed limit as well as command line flag into account.
+#if 0
 constexpr size_t kV8MaxWasmMemoryPages = 65536;  // = 4 GiB
+#else
+constexpr size_t kV8MaxWasmMemoryPages = 2048;  // = 128 MiB
+#endif
 constexpr size_t kV8MaxWasmStringSize = 100000;
 constexpr size_t kV8MaxWasmModuleSize = 1024 * 1024 * 1024;  // = 1 GiB
 constexpr size_t kV8MaxWasmFunctionSize = 7654321;

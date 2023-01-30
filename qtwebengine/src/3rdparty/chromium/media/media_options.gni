@@ -123,6 +123,9 @@ declare_args() {
   # Enables runtime selection of ALSA library for audio.
   use_alsa = false
 
+  # Enables runtime selection of oss library for audio.
+  use_oss = false
+
   # Enables runtime selection of sndio library for audio.
   use_sndio = false
 

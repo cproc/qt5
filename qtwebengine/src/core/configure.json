@@ -21,6 +21,7 @@
             "webengine-printing-and-pdf": "boolean",
             "webengine-proprietary-codecs": "boolean",
             "webengine-pulseaudio": "boolean",
+            "webengine-oss": "boolean",
             "webengine-sndio": "boolean",
             "webengine-spellchecker": "boolean",
             "webengine-native-spellchecker": "boolean",
@@ -31,6 +32,7 @@
             "webengine-webchannel": "boolean",
             "webengine-kerberos": "boolean",
             "alsa": { "type": "boolean", "name": "webengine-alsa" },
+            "oss": { "type": "boolean", "name": "webengine-oss" },
             "pulseaudio": { "type": "boolean", "name": "webengine-pulseaudio" },
 	    "sndio": { "type": "boolean", "name": "webengine-sndio" },
             "ffmpeg": { "type": "enum", "name": "webengine-system-ffmpeg", "values": { "system": "yes", "qt": "no" } },
@@ -132,6 +134,11 @@
             "label": "Use PulseAudio",
             "autoDetect": "config.unix",
             "condition": "libs.webengine-pulseaudio",
+            "output": [ "privateFeature" ]
+        },
+        "webengine-oss": {
+            "label": "Use OSS",
+            "condition": "!features.webengine-sndio",
             "output": [ "privateFeature" ]
         },
         "webengine-sndio": {
@@ -292,6 +299,11 @@
                 {
                     "type": "feature",
                     "args": "webengine-pulseaudio",
+                    "condition": "config.unix"
+                },
+                {
+                    "type": "feature",
+                    "args": "webengine-oss",
                     "condition": "config.unix"
                 },
                 {

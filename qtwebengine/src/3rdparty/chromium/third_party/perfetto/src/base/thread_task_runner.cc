@@ -85,7 +85,9 @@ void ThreadTaskRunner::RunTaskThread(
 #if PERFETTO_BUILDFLAG(PERFETTO_OS_MACOSX)
     pthread_setname_np(name_.c_str());
 #elif PERFETTO_BUILDFLAG(PERFETTO_OS_FREEBSD)
+#if 0
     pthread_set_name_np(pthread_self(), name_.c_str());
+#endif
 #elif PERFETTO_BUILDFLAG(PERFETTO_OS_LINUX) || \
     PERFETTO_BUILDFLAG(PERFETTO_OS_ANDROID)
     prctl(PR_SET_NAME, name_.c_str());

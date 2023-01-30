@@ -69,7 +69,7 @@ const char* GetAndLeakThreadName() {
   int err = pthread_getname_np(pthread_self(), name, kBufferLen);
   if (err == 0 && *name != '\0')
     return strdup(name);
-#elif defined(OS_BSD) && __FreeBSD__ >= 12
+#elif defined(OS_BSD) && __FreeBSD__ >= 12 && 0
   pthread_get_name_np(pthread_self(), name, kBufferLen);
   if (*name != '\0')
     return strdup(name);

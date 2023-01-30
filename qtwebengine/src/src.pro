@@ -27,7 +27,7 @@ qtConfig(build-qtwebengine-core):qtConfig(webengine-core-support) {
     webengine_plugin.target = sub-webengine-plugin
     webengine_plugin.depends = webengine
 
-    SUBDIRS += buildtools core process
+    SUBDIRS += buildtools core
 
     qtConfig(webengine-spellchecker):!qtConfig(webengine-native-spellchecker):!cross_compile {
         SUBDIRS += qwebengine_convert_dict

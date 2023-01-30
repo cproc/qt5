@@ -26,6 +26,12 @@ qtConfig(webengine-embedded-build) {
         gn_args += use_sndio=false
     }
 
+    qtConfig(webengine-oss) {
+        gn_args += use_oss=true
+    } else {
+        gn_args += use_oss=false
+    }
+
     !packagesExist(libpci): gn_args += use_libpci=false
 
     qtConfig(webengine-ozone-x11) {

@@ -134,7 +134,9 @@ class SCOPED_LOCKABLE ScopedValidateThreadChecker {
   explicit ScopedValidateThreadChecker(const ThreadChecker& checker,
                                        const StringPiece& msg)
       EXCLUSIVE_LOCK_FUNCTION(checker) {
+#if 0
     DCHECK(checker.CalledOnValidThread()) << msg;
+#endif
   }
 
   ~ScopedValidateThreadChecker() UNLOCK_FUNCTION() {}

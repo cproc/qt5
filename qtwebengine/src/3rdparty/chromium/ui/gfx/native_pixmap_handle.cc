@@ -4,6 +4,7 @@
 
 #include "ui/gfx/native_pixmap_handle.h"
 
+#include <unistd.h>
 #include <utility>
 
 #include "build/build_config.h"

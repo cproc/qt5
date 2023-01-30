@@ -73,6 +73,9 @@ config("media_config") {
   if (use_cras) {
     defines += [ "USE_CRAS" ]
   }
+  if (use_oss) {
+    defines += [ "USE_OSS" ]
+  }
 }
 
 # Internal grouping of the configs necessary to support sub-folders having their

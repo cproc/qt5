@@ -160,12 +160,15 @@ ConfigParsePosixResult ReadDnsConfig(DnsConfig* dns_config) {
     result = CONFIG_PARSE_POSIX_RES_INIT_FAILED;
   }
 #else  // all other OS_POSIX
+#if 0
   struct __res_state res;
   memset(&res, 0, sizeof(res));
   if (res_ninit(&res) == 0) {
     result = ConvertResStateToDnsConfig(res, dns_config);
   } else {
+#endif
     result = CONFIG_PARSE_POSIX_RES_INIT_FAILED;
+#if 0
   }
   // Prefer res_ndestroy where available.
 #if defined(OS_MACOSX) || defined(OS_FREEBSD)
@@ -173,6 +176,7 @@ ConfigParsePosixResult ReadDnsConfig(DnsConfig* dns_config) {
 #else
   res_nclose(&res);
 #endif  // defined(OS_MACOSX) || defined(OS_FREEBSD)
+#endif  // 0
 #endif  // defined(OS_OPENBSD)
 
 #if defined(OS_MACOSX) && !defined(OS_IOS)

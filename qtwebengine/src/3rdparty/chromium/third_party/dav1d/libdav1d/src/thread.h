@@ -160,7 +160,9 @@ static inline void dav1d_set_thread_name(const char *const name) {
 #include <pthread_np.h>
 
 static inline void dav1d_set_thread_name(const char *const name) {
+#if 0
     pthread_set_name_np(pthread_self(), name);
+#endif
 }
 
 #elif defined(__NetBSD__)

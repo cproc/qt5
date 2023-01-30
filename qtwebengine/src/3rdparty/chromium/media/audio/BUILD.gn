@@ -230,11 +230,21 @@ source_set("audio") {
     ]
   }
 
-  if (is_linux && !use_sndio) {
+  if (use_oss) {
+    sources += [
+      "genode/audio_manager_genode.cc",
+      "oss/oss_input.cc",
+      "oss/oss_input.h",
+      "oss/oss_output.cc",
+      "oss/oss_output.h"
+    ]
+  }
+
+  if (is_linux && !use_oss && !use_sndio) {
     sources += [ "linux/audio_manager_linux.cc" ]
   }
   if (use_sndio) {
-    libs += [ "sndio" ]
+    #libs += [ "sndio" ]
     sources += [
       "openbsd/audio_manager_openbsd.cc",
       "sndio/sndio_input.cc",

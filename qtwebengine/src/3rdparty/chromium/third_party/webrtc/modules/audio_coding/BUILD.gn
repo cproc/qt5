@@ -479,7 +479,7 @@ rtc_library("isac_c") {
   ]
 
   if (is_linux) {
-    libs = [ "m" ]
+    #libs = [ "m" ]
   }
 
   deps = [

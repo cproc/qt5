@@ -23,7 +23,7 @@ namespace v8 {
 namespace internal {
 
 namespace {
-#if V8_TARGET_ARCH_64_BIT
+#if V8_TARGET_ARCH_64_BIT && 0
 constexpr bool kUseGuardRegions = true;
 #else
 constexpr bool kUseGuardRegions = false;

@@ -41,6 +41,7 @@
 #define BUILD_CONFIG_QT
 
 #include <QtCore/qglobal.h>
+#include <QtGui/qtguiglobal.h>
 #include <QtWebEngineCore/qtwebenginecore-config.h>
 #include <QtWebEngineCore/private/qtwebenginecore-config_p.h>
 

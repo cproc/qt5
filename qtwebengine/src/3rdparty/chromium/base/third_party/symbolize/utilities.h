@@ -7,5 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#if 0
 #define HAVE_SYMBOLIZE 1
+#endif
 #define ATTRIBUTE_NOINLINE __attribute__ ((noinline))

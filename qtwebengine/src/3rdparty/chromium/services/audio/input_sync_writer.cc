@@ -178,11 +178,23 @@ void InputSyncWriter::Write(const media::AudioBus* data,
   // that hasn't been read yet. The renderer side sends a signal over the socket
   // each time it has read data. Here, we read those verifications before
   // writing. We verify that each buffer index is in sequence.
+#if defined(OS_GENODE)
+  /* 'SyncSocket::Peek() is currently not implemented for Genode */
+  size_t number_of_indices_available = 1;
+#else
   size_t number_of_indices_available = socket_->Peek() / sizeof(uint32_t);
+#endif
   if (number_of_indices_available > 0) {
     auto indices = std::make_unique<uint32_t[]>(number_of_indices_available);
+#if defined(OS_GENODE)
+    size_t bytes_received = socket_->ReceiveWithTimeout(
+        &indices[0], number_of_indices_available * sizeof(indices[0]),
+        base::TimeDelta::FromMilliseconds(10));
+    if (bytes_received > 0) {
+#else
     size_t bytes_received = socket_->Receive(
         &indices[0], number_of_indices_available * sizeof(indices[0]));
+#endif
     CHECK_EQ(number_of_indices_available * sizeof(indices[0]), bytes_received);
     for (size_t i = 0; i < number_of_indices_available; ++i) {
       ++next_read_buffer_index_;
@@ -190,6 +202,9 @@ void InputSyncWriter::Write(const media::AudioBus* data,
       CHECK_GT(number_of_filled_segments_, 0u);
       --number_of_filled_segments_;
     }
+#if defined(OS_GENODE)
+    }
+#endif
   }
 
   bool write_error = !WriteDataFromFifoToSharedMemory();

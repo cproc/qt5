@@ -31,7 +31,7 @@ enum OpenBSDAudioIO {
 static const int kMaxOutputStreams = 4;
 
 // Default sample rate for input and output streams.
-static const int kDefaultSampleRate = 48000;
+static const int kDefaultSampleRate = 44100;
 
 void AddDefaultDevice(AudioDeviceNames* device_names) {
   DCHECK(device_names->empty());
@@ -125,7 +125,7 @@ AudioParameters AudioManagerOpenBSD::GetPreferredOutputStreamParameters(
     const AudioParameters& input_params) {
   // TODO(tommi): Support |output_device_id|.
   DLOG_IF(ERROR, !output_device_id.empty()) << "Not implemented!";
-  static const int kDefaultOutputBufferSize = 2048;
+  static const int kDefaultOutputBufferSize = 4*2048;
 
   ChannelLayout channel_layout = CHANNEL_LAYOUT_STEREO;
   int sample_rate = kDefaultSampleRate;

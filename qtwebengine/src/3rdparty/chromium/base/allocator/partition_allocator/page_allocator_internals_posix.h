@@ -133,6 +133,13 @@ void* SystemAllocPagesInternal(void* hint,
   }
 #endif
 
+#if defined(OS_GENODE)
+  /*
+   * The access type cannot be changed later with 'mprotect()' on Genode,
+   * but some memory needs to be executable.
+   */
+  access_flag |= PROT_EXEC;
+#endif
   void* ret =
       mmap(hint, length, access_flag, map_flags, fd, 0);
   if (ret == MAP_FAILED) {
@@ -164,14 +171,18 @@ void* TrimMappingInternal(void* base,
   // We can resize the allocation run. Release unneeded memory before and after
   // the aligned range.
   if (pre_slack) {
+#if 0
     int res = munmap(base, pre_slack);
     CHECK(!res);
+#endif
     ret = reinterpret_cast<char*>(base) + pre_slack;
   }
+#if 0
   if (post_slack) {
     int res = munmap(reinterpret_cast<char*>(ret) + trim_length, post_slack);
     CHECK(!res);
   }
+#endif
   return ret;
 }
 
@@ -190,7 +201,15 @@ void SetSystemPagesAccessInternal(
 }
 
 void FreePagesInternal(void* address, size_t length) {
+#if defined(OS_GENODE)
+  /*
+   * Sometimes only parts of the originally allocated area are to be freed,
+   * which is currently not supported on Genode.
+   */
+  munmap(address, length);
+#else
   CHECK(!munmap(address, length));
+#endif
 }
 
 void DecommitSystemPagesInternal(void* address, size_t length) {

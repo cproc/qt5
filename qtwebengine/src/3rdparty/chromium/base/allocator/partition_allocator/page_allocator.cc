@@ -117,13 +117,14 @@ void* AllocPages(void* address,
   uintptr_t align_base_mask = ~align_offset_mask;
   DCHECK(!(reinterpret_cast<uintptr_t>(address) & align_offset_mask));
 
+#if 0
   // If the client passed null as the address, choose a good one.
   if (address == nullptr) {
     address = GetRandomPageBase();
     address = reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(address) &
                                       align_base_mask);
   }
-
+#endif
   // First try to force an exact-size, aligned allocation from our random base.
 #if defined(ARCH_CPU_32_BITS)
   // On 32 bit systems, first try one random aligned address, and then try an
@@ -170,7 +171,7 @@ void* AllocPages(void* address,
 
   do {
     // Continue randomizing only on POSIX.
-    address = kHintIsAdvisory ? GetRandomPageBase() : nullptr;
+    address = /*kHintIsAdvisory ? GetRandomPageBase() :*/ nullptr;
     ret = AllocPagesIncludingReserved(address, try_length, accessibility,
                                       page_tag, commit);
     // The retries are for Windows, where a race can steal our mapping on

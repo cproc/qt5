@@ -83,6 +83,7 @@ size_t ProcessMemoryDump::CountResidentBytes(void* start_address,
 
   size_t offset = 0;
   size_t total_resident_pages = 0;
+#if 0
   bool failure = false;
 
   // An array as large as number of pages in memory segment needs to be passed
@@ -157,6 +158,7 @@ size_t ProcessMemoryDump::CountResidentBytes(void* start_address,
     total_resident_pages = 0;
     LOG(ERROR) << "CountResidentBytes failed. The resident size is invalid";
   }
+#endif
   return total_resident_pages;
 }
 

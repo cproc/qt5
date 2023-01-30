@@ -54,16 +54,16 @@
 #define SS_CANTRCVMORE 0x020
 #define SS_CANTSENDMORE 0x010
 
-#if defined(__Userspace_os_Darwin) || defined(__Userspace_os_DragonFly) || defined(__Userspace_os_FreeBSD) || defined(__Userspace_os_OpenBSD) || defined (__Userspace_os_Windows) || defined(__Userspace_os_NaCl)
+#if defined(__Userspace_os_Darwin) || defined(__Userspace_os_DragonFly) || defined(__Userspace_os_FreeBSD) || defined(__Userspace_os_OpenBSD) || defined (__Userspace_os_Windows) || defined(__Userspace_os_NaCl) || defined(__Userspace_os_Genode)
 #define UIO_MAXIOV 1024
 #define ERESTART (-1)
 #endif
 
-#if !defined(__Userspace_os_Darwin) && !defined(__Userspace_os_NetBSD) && !defined(__Userspace_os_OpenBSD)
+#if !defined(__Userspace_os_Darwin) && !defined(__Userspace_os_NetBSD) && !defined(__Userspace_os_OpenBSD) && !defined(__Userspace_os_Genode)
 enum	uio_rw { UIO_READ, UIO_WRITE };
 #endif
 
-#if !defined(__Userspace_os_NetBSD) && !defined(__Userspace_os_OpenBSD)
+#if !defined(__Userspace_os_NetBSD) && !defined(__Userspace_os_OpenBSD) && !defined(__Userspace_os_Genode)
 /* Segment flag values. */
 enum uio_seg {
 	UIO_USERSPACE,		/* from user data space */

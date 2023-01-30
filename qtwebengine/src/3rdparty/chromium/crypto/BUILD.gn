@@ -104,7 +104,7 @@ component("crypto") {
   }
 
   # Some files are built when NSS is used for the platform certificate library.
-  if (!use_nss_certs) {
+  if (!use_nss_certs || (current_toolchain == host_toolchain)) {
     sources -= [
       "nss_key_util.cc",
       "nss_key_util.h",

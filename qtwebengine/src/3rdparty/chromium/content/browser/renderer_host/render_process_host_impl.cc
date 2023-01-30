@@ -1731,8 +1731,10 @@ bool RenderProcessHostImpl::Init() {
   // Find the renderer before creating the channel so if this fails early we
   // return without creating the channel.
   base::FilePath renderer_path = ChildProcessHost::GetChildPath(flags);
+#if 0
   if (renderer_path.empty())
     return false;
+#endif
 
   is_initialized_ = true;
   is_dead_ = false;
@@ -1804,6 +1806,11 @@ bool RenderProcessHostImpl::Init() {
     // So put it here to trigger ChannelMojo initialization earlier to enable
     // in-process-render-thread using ChannelMojo there.
     OnProcessLaunched();  // Fake a callback that the process is ready.
+
+#if defined(OS_GENODE)
+    /* the default 256K were not enough for booking.com */
+    options.stack_size = 1024*1024;
+#endif
 
     in_process_renderer_->StartWithOptions(options);
 

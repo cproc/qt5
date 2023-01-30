@@ -27,6 +27,9 @@
 namespace crc32c {
 
 inline bool CanUseArm64Linux() {
+#if defined(__GENODE__)
+  return true;
+#else
   uint64_t id_aa64isar0;
 
   id_aa64isar0 = READ_SPECIALREG(id_aa64isar0_el1);
@@ -34,6 +37,7 @@ inline bool CanUseArm64Linux() {
      (ID_AA64ISAR0_CRC32_VAL(id_aa64isar0) == ID_AA64ISAR0_CRC32_BASE))
     return true;
   return false;
+#endif
 }
 
 }  // namespace crc32c

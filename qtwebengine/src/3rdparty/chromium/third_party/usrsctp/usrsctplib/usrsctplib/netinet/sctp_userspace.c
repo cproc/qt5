@@ -94,7 +94,7 @@ sctp_userspace_set_threadname(const char *name)
 #endif
 }
 
-#if !defined(_WIN32) && !defined(__Userspace_os_NaCl)
+#if !defined(_WIN32) && !defined(__Userspace_os_NaCl) && !defined(__Userspace_os_Genode)
 int
 sctp_userspace_get_mtu_from_ifn(uint32_t if_index, int af)
 {
@@ -118,7 +118,7 @@ sctp_userspace_get_mtu_from_ifn(uint32_t if_index, int af)
 }
 #endif
 
-#if defined(__Userspace_os_NaCl)
+#if defined(__Userspace_os_NaCl) || defined(__Userspace_os_Genode)
 int
 sctp_userspace_get_mtu_from_ifn(uint32_t if_index, int af)
 {
@@ -126,7 +126,7 @@ sctp_userspace_get_mtu_from_ifn(uint32_t if_index, int af)
 }
 #endif
 
-#if defined(__Userspace_os_Darwin) || defined(__Userspace_os_DragonFly) || defined(__Userspace_os_Linux) || defined(__Userspace_os_NaCl) || defined(__Userspace_os_NetBSD) || defined(__Userspace_os_Windows) || defined(__Userspace_os_Fuchsia)
+#if defined(__Userspace_os_Darwin) || defined(__Userspace_os_DragonFly) || defined(__Userspace_os_Linux) || defined(__Userspace_os_NaCl) || defined(__Userspace_os_NetBSD) || defined(__Userspace_os_Windows) || defined(__Userspace_os_Fuchsia) || defined(__Userspace_os_Genode)
 int
 timingsafe_bcmp(const void *b1, const void *b2, size_t n)
 {

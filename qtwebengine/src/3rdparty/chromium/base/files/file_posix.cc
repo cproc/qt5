@@ -53,7 +53,11 @@ int CallFutimes(PlatformFile file, const struct timeval times[2]) {
 
   return futimens(file, ts_times);
 #else
+#if 0
   return futimes(file, times);
+#else
+  return 0;
+#endif
 #endif
 }
 

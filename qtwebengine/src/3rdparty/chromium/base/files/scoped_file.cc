@@ -14,6 +14,10 @@
 #include "base/posix/eintr_wrapper.h"
 #endif
 
+#if defined(OS_GENODE)
+#include "base/sync_socket.h"
+#endif
+
 namespace base {
 namespace internal {
 
@@ -28,7 +32,22 @@ void ScopedFDCloseTraits::Free(int fd) {
   // Chrome relies on being able to "drop" such access.
   // It's especially problematic on Linux with the setuid sandbox, where
   // a single open directory would bypass the entire security model.
-  int ret = IGNORE_EINTR(close(fd));
+
+  int ret;
+
+#if defined(OS_GENODE)
+  if (fd <= 1023) {
+#endif
+
+  ret = IGNORE_EINTR(close(fd));
+
+#if defined(OS_GENODE)
+  } else {
+    /* SyncSocket */
+    ret = IGNORE_EINTR(close(SYNC_SOCKET_GENODE_READ_FD(fd))) |
+          IGNORE_EINTR(close(SYNC_SOCKET_GENODE_WRITE_FD(fd)));
+  }
+#endif
 
 #if defined(OS_LINUX) || defined(OS_MACOSX) || defined(OS_FUCHSIA) || defined(OS_BSD) || \
     defined(OS_ANDROID)

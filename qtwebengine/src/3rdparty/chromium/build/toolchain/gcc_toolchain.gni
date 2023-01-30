@@ -37,6 +37,7 @@ if (is_linux && target_os == "android") {
 }
 
 declare_args() {
+  extra_cflags = ""
   extra_cxxflags = ""
   extra_ldflags = ""
 }

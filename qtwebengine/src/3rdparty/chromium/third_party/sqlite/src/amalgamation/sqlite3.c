@@ -34995,6 +34995,7 @@ static int unixCheckReservedLock(sqlite3_file *id, int *pResOut){
 ** If SQLITE_ENABLE_SETLK_TIMEOUT is not defined, then do a non-blocking
 ** attempt to set the lock.
 */
+#if 0
 #ifndef SQLITE_ENABLE_SETLK_TIMEOUT
 # define osSetPosixAdvisoryLock(h,x,t) osFcntl(h,F_SETLK,x)
 #else
@@ -35018,7 +35019,15 @@ static int osSetPosixAdvisoryLock(
   return rc;
 }
 #endif /* SQLITE_ENABLE_SETLK_TIMEOUT */
-
+#else
+static int osSetPosixAdvisoryLock(
+  int h,                /* The file descriptor on which to take the lock */
+  struct flock *pLock,  /* The description of the lock */
+  unixFile *pFile       /* Structure holding timeout value */
+){
+  return 0;
+}
+#endif
 
 /*
 ** Attempt to set a system-lock on the file pFile.  The lock is 

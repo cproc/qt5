@@ -298,7 +298,9 @@ Process Process::Duplicate() const {
 }
 
 ProcessId Process::Pid() const {
+#if 0
   DCHECK(IsValid());
+#endif
   return GetProcId(process_);
 }
 

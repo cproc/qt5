@@ -168,7 +168,7 @@ static_library("simd") {
     ]
     configs -= [ "//build/config/compiler:default_optimization" ]
     configs += [ "//build/config/compiler:optimize_speed" ]
-  } else if (current_cpu == "arm64" && arm_use_neon) {
+  } else if (current_cpu == "arm64" && arm_use_neon && false) {
     sources = [
       "simd/arm/arm64/jsimd.c",
       "simd/arm/arm64/jsimd_neon.S",

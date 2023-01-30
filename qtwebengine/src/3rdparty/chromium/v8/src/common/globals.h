@@ -187,7 +187,11 @@ constexpr size_t kMaxWasmCodeMemory = kMaxWasmCodeMB * MB;
 // ARM64 only supports direct calls within a 128 MB range.
 constexpr size_t kMaxWasmCodeSpaceSize = 128 * MB;
 #else
+#if defined(V8_OS_GENODE)
+constexpr size_t kMaxWasmCodeSpaceSize = 128 * MB;
+#else
 constexpr size_t kMaxWasmCodeSpaceSize = kMaxWasmCodeMemory;
+#endif /* V8_OS_GENODE */
 #endif
 
 #if V8_HOST_ARCH_64_BIT

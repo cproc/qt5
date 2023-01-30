@@ -28,6 +28,15 @@
 #include "base/file_descriptor_posix.h"
 #endif
 
+#if defined(OS_GENODE)
+#define SYNC_SOCKET_GENODE_FD_MASK ((1 << 10) - 1)
+#define SYNC_SOCKET_GENODE_WRITE_FD_SHIFT  10
+#define SYNC_SOCKET_GENODE_CANCEL_FD_SHIFT 20
+#define SYNC_SOCKET_GENODE_READ_FD(handle)   ((handle                                      ) & SYNC_SOCKET_GENODE_FD_MASK)
+#define SYNC_SOCKET_GENODE_WRITE_FD(handle)  ((handle >> SYNC_SOCKET_GENODE_WRITE_FD_SHIFT ) & SYNC_SOCKET_GENODE_FD_MASK)
+#define SYNC_SOCKET_GENODE_CANCEL_FD(handle) ((handle >> SYNC_SOCKET_GENODE_CANCEL_FD_SHIFT) & SYNC_SOCKET_GENODE_FD_MASK)
+#endif
+
 namespace base {
 
 class BASE_EXPORT SyncSocket {
@@ -113,14 +122,16 @@ class BASE_EXPORT CancelableSyncSocket : public SyncSocket {
   // a blocking Receive or Send.
   bool Shutdown();
 
-#if defined(OS_WIN)
+#if defined(OS_WIN) || defined(OS_GENODE)
   // Since the Linux and Mac implementations actually use a socket, shutting
   // them down from another thread is pretty simple - we can just call
   // shutdown().  However, the Windows implementation relies on named pipes
   // and there isn't a way to cancel a blocking synchronous Read that is
   // supported on <Vista. So, for Windows only, we override these
   // SyncSocket methods in order to support shutting down the 'socket'.
+#if !defined(OS_GENODE)
   void Close() override;
+#endif
   size_t Receive(void* buffer, size_t length) override;
   size_t ReceiveWithTimeout(void* buffer,
                             size_t length,
@@ -138,6 +149,9 @@ class BASE_EXPORT CancelableSyncSocket : public SyncSocket {
 #if defined(OS_WIN)
   WaitableEvent shutdown_event_;
   WaitableEvent file_operation_;
+#endif
+#if defined(OS_GENODE)
+  bool canceled_ { false };
 #endif
   DISALLOW_COPY_AND_ASSIGN(CancelableSyncSocket);
 };

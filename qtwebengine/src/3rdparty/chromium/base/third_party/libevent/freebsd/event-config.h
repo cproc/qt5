@@ -210,7 +210,7 @@
 #define _EVENT_HAVE_VASPRINTF 1
 
 /* Define if kqueue works correctly with pipes */
-#define _EVENT_HAVE_WORKING_KQUEUE 1
+/*#define _EVENT_HAVE_WORKING_KQUEUE 1*/
 
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */

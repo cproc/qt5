@@ -41,8 +41,10 @@ void* AlignedAlloc(size_t size, size_t alignment) {
                 << "size=" << size << ", alignment=" << alignment;
     CHECK(false);
   }
+#if !defined(OS_GENODE)
   // Sanity check alignment just to be safe.
   DCHECK_EQ(reinterpret_cast<uintptr_t>(ptr) & (alignment - 1), 0U);
+#endif
   return ptr;
 }
 

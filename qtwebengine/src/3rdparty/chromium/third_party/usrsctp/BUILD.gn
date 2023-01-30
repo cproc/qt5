@@ -128,7 +128,7 @@ static_library("usrsctp") {
     ]
   } else if (is_bsd) {
     defines += [
-      "__Userspace_os_FreeBSD",
+      "__Userspace_os_Genode",
     ]
     cflags += [ "-U__FreeBSD__" ]
   } else if (is_mac || is_ios) {

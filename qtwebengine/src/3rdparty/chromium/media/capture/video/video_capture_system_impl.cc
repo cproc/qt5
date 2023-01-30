@@ -44,6 +44,7 @@ bool IsCaptureFormatEqual(const media::VideoCaptureFormat& format1,
 void ConsolidateCaptureFormats(media::VideoCaptureFormats* formats) {
   if (formats->empty())
     return;
+#if !defined(OS_GENODE)
   // Mark all formats as I420, since this is what the renderer side will get
   // anyhow: the actual pixel format is decided at the device level.
   // Don't do this for Y16 format as it is handled separatelly.
@@ -51,6 +52,7 @@ void ConsolidateCaptureFormats(media::VideoCaptureFormats* formats) {
     if (format.pixel_format != media::PIXEL_FORMAT_Y16)
       format.pixel_format = media::PIXEL_FORMAT_I420;
   }
+#endif
   std::sort(formats->begin(), formats->end(), IsCaptureFormatSmaller);
   // Remove duplicates
   auto last =
