@@ -2173,6 +2173,7 @@ void vmaDestroyImage(
 #undef VMA_IMPLEMENTATION
 
 #include <cstdint>
+#include <cstdio>
 #include <cstdlib>
 #include <cstring>
 

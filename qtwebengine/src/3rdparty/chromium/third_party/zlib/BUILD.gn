@@ -30,7 +30,7 @@ if ((current_cpu == "arm" || current_cpu == "arm64") &&
   # TODO(richard.townsend@arm.com): Optimizations temporarily disabled for
   # Windows on Arm MSVC builds, see http://crbug.com/v8/10012.
   if (arm_use_neon) {
-    use_arm_neon_optimizations = true
+#    use_arm_neon_optimizations = true
   }
 }
 

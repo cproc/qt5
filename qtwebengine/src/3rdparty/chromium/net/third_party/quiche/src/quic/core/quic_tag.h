@@ -5,6 +5,7 @@
 #ifndef QUICHE_QUIC_CORE_QUIC_TAG_H_
 #define QUICHE_QUIC_CORE_QUIC_TAG_H_
 
+#include <cstdint>
 #include <map>
 #include <string>
 #include <vector>
