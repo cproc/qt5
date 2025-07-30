@@ -472,6 +472,22 @@ bool QNativeSocketEnginePrivate::nativeConnect(const QHostAddress &addr, quint16
         case EISCONN:
             socketState = QAbstractSocket::ConnectedState;
             break;
+#ifdef Q_OS_GENODE
+        /* to have Arora get an error indication, socketState needs to change
+         * to "ConnectingState" before changing to "UnconnectedState" again
+         */
+        case ECONNABORTED:
+            if (socketState == QAbstractSocket::UnconnectedState) {
+                /* interpret ECONNABORTED as EINPROGRESS */
+                setError(QAbstractSocket::UnfinishedSocketOperationError, InvalidSocketErrorString);
+                socketState = QAbstractSocket::ConnectingState;
+            } else {
+                /* interpret ECONNABORTED as EHOSTUNREACH */
+                setError(QAbstractSocket::NetworkError, HostUnreachableErrorString);
+                socketState = QAbstractSocket::UnconnectedState;
+            }
+            break;
+#endif
         case ECONNREFUSED:
         case EINVAL:
             setError(QAbstractSocket::ConnectionRefusedError, ConnectionRefusedErrorString);

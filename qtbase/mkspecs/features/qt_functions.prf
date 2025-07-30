@@ -370,5 +370,6 @@ defineTest(qtConfig) {
         contains(QT.$${module}.disabled_features, $$1): \
             return(false)
     }
-    error("Could not find feature $${1}.")
+    #error("Could not find feature $${1}.")
+    return(false)
 }

@@ -9,11 +9,11 @@ winrt {
 }
 qnx: DEFINES += _QNX_SOURCE
 !win32:!winrt:!winphone: DEFINES += HAVE_USLEEP=1
-qtConfig(dlopen) {
-    QMAKE_USE += libdl
-} else {
-    DEFINES += SQLITE_OMIT_LOAD_EXTENSION
-}
+#qtConfig(dlopen) {
+#    QMAKE_USE += libdl
+#} else {
+#    DEFINES += SQLITE_OMIT_LOAD_EXTENSION
+#}
 integrity: QMAKE_CFLAGS += -include qplatformdefs.h
 INCLUDEPATH +=  $$PWD/sqlite
 SOURCES +=      $$PWD/sqlite/sqlite3.c

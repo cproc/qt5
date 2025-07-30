@@ -93,7 +93,9 @@
 #endif
 
 #if defined(Q_OS_DARWIN) || !defined(Q_OS_ANDROID) && !defined(Q_OS_OPENBSD) && defined(_POSIX_THREAD_PRIORITY_SCHEDULING) && (_POSIX_THREAD_PRIORITY_SCHEDULING-0 >= 0)
+#ifndef Q_OS_GENODE
 #define QT_HAS_THREAD_PRIORITY_SCHEDULING
+#endif
 #endif
 
 #if defined(Q_OS_QNX)

@@ -173,6 +173,10 @@ static inline int qt_safe_ioctl(int sockfd, unsigned long request, T arg)
 
 static inline int qt_safe_sendmsg(int sockfd, const struct msghdr *msg, int flags)
 {
+#ifdef Q_OS_GENODE
+    qWarning("qt_safe_sendmsg(): not implemented");
+    return -1;
+#else
 #ifdef MSG_NOSIGNAL
     flags |= MSG_NOSIGNAL;
 #else
@@ -182,14 +186,20 @@ static inline int qt_safe_sendmsg(int sockfd, const struct msghdr *msg, int flag
     int ret;
     EINTR_LOOP(ret, ::sendmsg(sockfd, msg, flags));
     return ret;
+#endif /* Q_OS_GENODE */
 }
 
 static inline int qt_safe_recvmsg(int sockfd, struct msghdr *msg, int flags)
 {
+#ifdef Q_OS_GENODE
+    qWarning("qt_safe_recvmsg(): not implemented");
+    return -1;
+#else
     int ret;
 
     EINTR_LOOP(ret, ::recvmsg(sockfd, msg, flags));
     return ret;
+#endif /* Q_OS_GENODE */
 }
 
 QT_END_NAMESPACE

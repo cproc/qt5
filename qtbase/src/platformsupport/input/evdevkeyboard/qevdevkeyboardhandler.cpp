@@ -55,7 +55,9 @@
 #ifdef Q_OS_FREEBSD
 #include <dev/evdev/input.h>
 #else
+#ifndef Q_OS_GENODE
 #include <linux/input.h>
+#endif /* Q_OS_GENODE */
 #endif
 
 #ifndef input_event_sec
@@ -96,9 +98,11 @@ QEvdevKeyboardHandler::QEvdevKeyboardHandler(const QString &device, QFdContainer
     if (keymapFile.isEmpty() || !loadKeymap(keymapFile))
         unloadKeymap();
 
+#ifndef Q_OS_GENODE
     // socket notifier for events on the keyboard device
     m_notify = new QSocketNotifier(m_fd.get(), QSocketNotifier::Read, this);
     connect(m_notify, &QSocketNotifier::activated, this, &QEvdevKeyboardHandler::readKeycode);
+#endif /* Q_OS_GENODE */
 }
 
 QEvdevKeyboardHandler::~QEvdevKeyboardHandler()
@@ -106,6 +110,7 @@ QEvdevKeyboardHandler::~QEvdevKeyboardHandler()
     unloadKeymap();
 }
 
+#ifndef Q_OS_GENODE
 std::unique_ptr<QEvdevKeyboardHandler> QEvdevKeyboardHandler::create(const QString &device,
                                                      const QString &specification,
                                                      const QString &defaultKeymapFile)
@@ -233,10 +238,21 @@ void QEvdevKeyboardHandler::readKeycode()
         }
     }
 }
+#endif /* Q_OS_GENODE */
 
 void QEvdevKeyboardHandler::processKeyEvent(int nativecode, int unicode, int qtcode,
                                             Qt::KeyboardModifiers modifiers, bool isPress, bool autoRepeat)
 {
+#ifdef Q_OS_GENODE
+    /* characters are handled separately by the QPA plugin */
+    unicode = 0xffff;
+
+    /* Ctrl-A .. Ctrl-Z is handled separately by the QPA plugin */
+    if ((modifiers & Qt::ControlModifier) &&
+        ((qtcode >= Qt::Key_A) && (qtcode <= Qt::Key_Z)))
+        return;
+#endif
+
     if (!autoRepeat)
         QGuiApplicationPrivate::inputDeviceManager()->setKeyboardModifiers(QEvdevKeyboardHandler::toQtModifiers(m_modifiers));
 
@@ -503,6 +519,7 @@ void QEvdevKeyboardHandler::unloadKeymap()
     m_composing = 0;
     m_dead_unicode = 0xffff;
 
+#ifndef Q_OS_GENODE
     //Set locks according to keyboard leds
     quint16 ledbits[1];
     memset(ledbits, 0, sizeof(ledbits));
@@ -525,6 +542,7 @@ void QEvdevKeyboardHandler::unloadKeymap()
     }
 
     m_langLock = 0;
+#endif /* Q_OS_GENODE */
 }
 
 bool QEvdevKeyboardHandler::loadKeymap(const QString &file)

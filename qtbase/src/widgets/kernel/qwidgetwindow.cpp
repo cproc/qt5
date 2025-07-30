@@ -160,6 +160,16 @@ QWidgetWindow::QWidgetWindow(QWidget *widget)
     : QWindow(*new QWidgetWindowPrivate(), nullptr)
     , m_widget(widget)
 {
+#ifdef Q_OS_GENODE
+    /*
+     * Forward window title to nitpicker.
+     *    
+     * This enables Qt5 applications to set a Genode label via 'setWindowTitle'
+     * from within Qt5 applications, and thus, making them identifiable to
+     * other Genode components, like a layout manager.
+     */
+    setTitle(widget->windowTitle());
+#endif /* Q_OS_GENODE */
     updateObjectName();
     // Enable QOpenGLWidget/QQuickWidget children if the platform plugin supports it,
     // and the application developer has not explicitly disabled it.
@@ -513,7 +523,27 @@ void QWidgetWindow::handleMouseEvent(QMouseEvent *event)
         QPointer<QWidget> activePopupWidget = QApplication::activePopupWidget();
         QPoint mapped = event->pos();
         if (activePopupWidget != m_widget)
+#ifdef Q_OS_GENODE
+            /*
+             * Prevent the false detection of "popup widget under mouse",
+             * because Qt does not know the actual position of the popup
+             * widget. Since the popup widget receives its own input events
+             * from the Gui session, there should be no need to forward this
+             * event of a different widget to the popup widget.
+             *
+             * The original problem could be reproduced with the textedit example
+             * by maximizing the size of the main window, then opening a
+             * "File open" dialog, then moving the dialog upwards to have some
+             * free space below, then opening the file type combo box and then
+             * moving the mouse pointer downwards into the main window. The
+             * highlighting of the combo box entries would move as if the combo
+             * box was under the mouse pointer even though it wasn't.
+             */
+            mapped = QPoint(-1, -1);
+#else
             mapped = activePopupWidget->mapFromGlobal(event->globalPos());
+#endif
+
         bool releaseAfter = false;
         QWidget *popupChild  = activePopupWidget->childAt(mapped);
 

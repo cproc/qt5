@@ -1416,7 +1416,7 @@
         },
         "dlopen": {
             "label": "dlopen()",
-            "condition": "config.unix && libs.libdl",
+            "condition": "(config.unix && libs.libdl) || true",
             "output": [ "privateFeature" ]
         },
         "relocatable": {

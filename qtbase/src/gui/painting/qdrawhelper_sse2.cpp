@@ -38,6 +38,7 @@
 **
 ****************************************************************************/
 
+#include <qconfig.h>
 #include <private/qdrawhelper_x86_p.h>
 
 #ifdef QT_COMPILER_SUPPORTS_SSE2

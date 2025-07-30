@@ -921,7 +921,12 @@ QHostInfoLookupManager::QHostInfoLookupManager() : wasDeleted(false)
     QObject::connect(QCoreApplication::instance(), &QObject::destroyed,
                      &threadPool, [&](QObject *) { threadPool.waitForDone(); },
                      Qt::DirectConnection);
+#ifdef Q_OS_GENODE
+    /* 'getaddrinfo()' is currently not thread-safe on Genode */
+    threadPool.setMaxThreadCount(1);
+#else
     threadPool.setMaxThreadCount(20); // do up to 20 DNS lookups in parallel
+#endif /* Q_OS_GENODE */
 #endif
 }
 

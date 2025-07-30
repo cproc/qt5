@@ -302,6 +302,8 @@ Q_CORE_EXPORT void qFloatFromFloat16(float *out, const qfloat16 *in, qsizetype l
 QT_END_NAMESPACE
 
 #include "qfloat16tables.cpp"
+#if QT_COMPILER_SUPPORTS(F16C) /* needed for Genode x86_32 */
 #ifdef QFLOAT16_INCLUDE_FAST
 #  include "qfloat16_f16c.c"
+#endif
 #endif

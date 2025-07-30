@@ -1422,7 +1422,12 @@ QGradient::~QGradient()
 }
 
 QT_END_NAMESPACE
-static void initGradientPresets() { Q_INIT_RESOURCE(qmake_webgradients); }
+static void initGradientPresets()
+{
+#ifndef Q_OS_GENODE
+	Q_INIT_RESOURCE(qmake_webgradients);
+#endif
+}
 Q_CONSTRUCTOR_FUNCTION(initGradientPresets);
 QT_BEGIN_NAMESPACE
 

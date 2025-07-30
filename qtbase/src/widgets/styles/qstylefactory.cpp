@@ -123,6 +123,13 @@ QStringList QStyleFactory::keys()
     const PluginKeyMap::const_iterator cend = keyMap.constEnd();
     for (PluginKeyMap::const_iterator it = keyMap.constBegin(); it != cend; ++it)
         list.append(it.value());
+#ifdef Q_OS_GENODE
+/* on Genode, the first style in the list gets selected by default and we want the "Fusion" style */
+#if QT_CONFIG(style_fusion)
+    if (!list.contains(QLatin1String("Fusion")))
+        list << QLatin1String("Fusion");
+#endif
+#endif
 #if QT_CONFIG(style_windows)
     if (!list.contains(QLatin1String("Windows")))
         list << QLatin1String("Windows");

@@ -35106,7 +35106,24 @@ static int unixCheckReservedLock(sqlite3_file *id, int *pResOut){
 ** attempt to set the lock.
 */
 #ifndef SQLITE_ENABLE_SETLK_TIMEOUT
+
+#ifdef __GENODE__
+/*
+ * F_SETLK is currently not implemented on Genode, but try it anyway to
+ * at least see the error message.
+ */
+static int osSetPosixAdvisoryLock(
+  int h,                /* The file descriptor on which to take the lock */
+  struct flock *pLock,  /* The description of the lock */
+  unixFile *pFile       /* Structure holding timeout value */
+){
+  osFcntl(h,F_SETLK,pLock);
+  return 0;
+}
+#else
 # define osSetPosixAdvisoryLock(h,x,t) osFcntl(h,F_SETLK,x)
+#endif
+
 #else
 static int osSetPosixAdvisoryLock(
   int h,                /* The file descriptor on which to take the lock */

@@ -54,7 +54,7 @@ set(Qt5Gui_OPENGL_LIBRARIES Qt5::Gui_GLESv2)
 
 !!IF !isEmpty(CMAKE_GL_INCDIRS)
 
-set(_GL_INCDIRS $$CMAKE_GL_INCDIRS)
+set(_GL_INCDIRS ${CMAKE_GL_INCDIRS})
 find_path(_qt5gui_OPENGL_INCLUDE_DIR $$CMAKE_GL_HEADER_NAME
     PATHS ${_GL_INCDIRS}
 )
@@ -171,11 +171,11 @@ endmacro()
 
 
 !!IF !isEmpty(CMAKE_EGL_LIBS)
-_qt5gui_find_extra_libs(EGL \"$$CMAKE_EGL_LIBS\" \"$$CMAKE_EGL_LIBDIR\" \"$$CMAKE_EGL_INCDIRS\")
+_qt5gui_find_extra_libs(EGL \"${CMAKE_EGL_LIBS}\" \"${CMAKE_EGL_LIBDIR}\" \"${CMAKE_EGL_INCDIRS}\")
 !!ENDIF
 
 !!IF !isEmpty(CMAKE_OPENGL_LIBS)
-_qt5gui_find_extra_libs(OPENGL \"$$CMAKE_OPENGL_LIBS\" \"$$CMAKE_OPENGL_LIBDIR\" \"$$CMAKE_OPENGL_INCDIRS\")
+_qt5gui_find_extra_libs(OPENGL \"${CMAKE_OPENGL_LIBS}\" \"${CMAKE_OPENGL_LIBDIR}\" \"${CMAKE_OPENGL_INCDIRS}\")
 
 !!ENDIF
 
@@ -191,3 +191,8 @@ foreach(_config ${_configs})
     )
 endforeach()
 unset(_configs)
+
+set_property(TARGET Qt5::Gui APPEND PROPERTY
+        INTERFACE_LINK_LIBRARIES
+        ${CMAKE_OPENGL_LIBS}
+)

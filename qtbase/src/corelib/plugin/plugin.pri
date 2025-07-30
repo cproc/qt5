@@ -34,5 +34,5 @@ qtConfig(library) {
     unix: SOURCES += plugin/qlibrary_unix.cpp
     else: SOURCES += plugin/qlibrary_win.cpp
 
-    qtConfig(dlopen): QMAKE_USE_PRIVATE += libdl
+    #qtConfig(dlopen): QMAKE_USE_PRIVATE += libdl
 }

@@ -200,6 +200,8 @@ int QThreadPipe::check(const pollfd &pfd)
 #if defined(Q_OS_VXWORKS)
         ::read(fds[0], c, sizeof(c));
         ::ioctl(fds[0], FIOFLUSH, 0);
+#elif defined(Q_OS_GENODE)
+        ::read(fds[0], c, sizeof(c)); // FIXME: the while loop only works in non-blocking mode
 #else
 #  ifndef QT_NO_EVENTFD
         if (fds[1] == -1) {

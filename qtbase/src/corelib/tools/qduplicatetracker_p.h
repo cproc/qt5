@@ -63,7 +63,7 @@ QT_BEGIN_NAMESPACE
 
 template <typename T, size_t Prealloc = 32>
 class QDuplicateTracker {
-#ifdef __cpp_lib_memory_resource
+#ifdef __cpp_lib_memory_resource_xxx_not_available_on_genode
     char buffer[Prealloc * sizeof(T)];
     std::pmr::monotonic_buffer_resource res{buffer, sizeof buffer};
     std::pmr::unordered_set<T> set{&res};
@@ -78,7 +78,7 @@ public:
     Q_REQUIRED_RESULT bool hasSeen(const T &s)
     {
         bool inserted;
-#ifdef __cpp_lib_memory_resource
+#ifdef __cpp_lib_memory_resource_xxx_not_available_on_genode
         inserted = set.insert(s).second;
 #else
         set.insert(s);

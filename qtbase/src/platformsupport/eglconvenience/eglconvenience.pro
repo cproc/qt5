@@ -38,6 +38,6 @@ qtConfig(egl_x11) {
 }
 CONFIG += egl
 
-qtConfig(dlopen): QMAKE_USE += libdl
+#qtConfig(dlopen): QMAKE_USE += libdl
 
 load(qt_module)

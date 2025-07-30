@@ -237,7 +237,7 @@ contains(CONFIG, plugin) {
             CMAKE_PRL_FILE_LOCATION_RELEASE = $$PLUGIN_TYPE/lib$${CMAKE_QT_STEM}.prl
             CMAKE_PRL_FILE_LOCATION_DEBUG = $$PLUGIN_TYPE/lib$${CMAKE_QT_STEM}_debug.prl
         } else {
-            isEmpty(CMAKE_STATIC_TYPE): CMAKE_PLUGIN_EXT = .so
+            isEmpty(CMAKE_STATIC_TYPE): CMAKE_PLUGIN_EXT = .lib.so
             else: CMAKE_PLUGIN_EXT = .a
 
             CMAKE_PLUGIN_LOCATION_RELEASE = $$PLUGIN_TYPE/lib$${CMAKE_QT_STEM}$${CMAKE_PLUGIN_EXT}
@@ -348,9 +348,9 @@ mac {
         CMAKE_PRL_FILE_LOCATION_DEBUG = lib$${CMAKE_QT_STEM}.prl
         CMAKE_PRL_FILE_LOCATION_RELEASE = lib$${CMAKE_QT_STEM}.prl
     } else:unversioned_libname {
-        CMAKE_LIB_FILE_LOCATION_DEBUG = lib$${CMAKE_QT_STEM}.so
-        CMAKE_LIB_FILE_LOCATION_RELEASE = lib$${CMAKE_QT_STEM}.so
-        CMAKE_LIB_SONAME = lib$${CMAKE_QT_STEM}.so
+        CMAKE_LIB_FILE_LOCATION_DEBUG = lib$${CMAKE_QT_STEM}.lib.so
+        CMAKE_LIB_FILE_LOCATION_RELEASE = lib$${CMAKE_QT_STEM}.lib.so
+        CMAKE_LIB_SONAME = lib$${CMAKE_QT_STEM}.lib.so
     } else {
         CMAKE_LIB_FILE_LOCATION_DEBUG = lib$${CMAKE_QT_STEM}.so.$$eval(QT.$${MODULE}.VERSION)
         CMAKE_LIB_FILE_LOCATION_RELEASE = lib$${CMAKE_QT_STEM}.so.$$eval(QT.$${MODULE}.VERSION)
